@@ -1,1 +1,3 @@
-run = "set -e; csc Main.cs; mono Main.exe"
+#run = "set -e; csc Main.cs; mono Main.exe"
+
+run = "mcs -out:main.exe 'Visao/Main.cs' 'Model/Genero.cs' 'Negocio/NGenero.cs'; mono main.exe"
