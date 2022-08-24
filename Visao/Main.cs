@@ -37,21 +37,29 @@ public class Program {
 
    public static int MenuAdmin() {
     Console.WriteLine();
-    Console.WriteLine("---- GÊNERO -----");
-    Console.WriteLine("  01 - Inserir");
-    Console.WriteLine("  02 - Listar");
-    Console.WriteLine("  03 - Atualizar");
-    Console.WriteLine("  04 - Excluir");
-    Console.WriteLine("------ Produtos ------");
-    Console.WriteLine("  05 - Inserir");
-    Console.WriteLine("  06 - Listar");
-    Console.WriteLine("  07 - Atualizar");
-    Console.WriteLine("  08 - Excluir");
-    Console.WriteLine("------ Vendas ------");
-    Console.WriteLine("  09 - Listar");
-    Console.WriteLine("----------------------");
-    Console.WriteLine("  99 - Logout");
-    Console.WriteLine("----------------------");
+    ConsoleColor foreground = Console.ForegroundColor;
+    Console.ForegroundColor = ConsoleColor.DarkRed;
+    Console.WriteLine("━━━━▶  GÊNERO  ◀━━━━");
+    Console.ForegroundColor = ConsoleColor.DarkBlue;
+    Console.WriteLine("▋  01 - Inserir    ▋");
+    Console.WriteLine("▋  02 - Listar     ▋");
+    Console.WriteLine("▋  03 - Atualizar  ▋");
+    Console.WriteLine("▋  04 - Excluir    ▋");
+     Console.ForegroundColor = ConsoleColor.DarkRed;
+    Console.WriteLine("━━━━▶  LIVRO   ◀━━━━");
+    Console.ForegroundColor = ConsoleColor.DarkBlue;
+    Console.WriteLine("▋  01 - Inserir    ▋");
+    Console.WriteLine("▋  02 - Listar     ▋");
+    Console.WriteLine("▋  03 - Atualizar  ▋");
+    Console.WriteLine("▋  04 - Excluir    ▋");
+    Console.ForegroundColor = ConsoleColor.DarkRed;
+    Console.WriteLine("━━━━▶  AUTOR   ◀━━━━");
+    Console.ForegroundColor = ConsoleColor.DarkBlue;
+    Console.WriteLine("▋  09 - Listar     ▋");
+    Console.ForegroundColor = ConsoleColor.DarkBlue;
+    Console.WriteLine("━━━━━━━━━━━━━━━━━━━━");
+    Console.WriteLine("▋  99 - Logout     ▋");
+    Console.WriteLine("━━━━━━━━━━━━━━━━━━━━");
     Console.Write("Opção: ");
     return int.Parse(Console.ReadLine());    
   }
