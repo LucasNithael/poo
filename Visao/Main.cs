@@ -85,8 +85,8 @@ public class Program {
     ConsoleColor foreground = Console.ForegroundColor;
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("━━━━▶  GÊNEROS  ◀━━━");
-    Console.ForegroundColor = ConsoleColor.Gray;
     //FAZ A CHAMADA DO MÉTODO LISTA(), ESSE MÉTODO RETORNA UMA LISTA COM OS OBJETOS INSERIDOS ATÉ ENTÃO
+    Console.ForegroundColor = ConsoleColor.Magenta;
     foreach(Genero i in NGenero.Listar())
       Console.WriteLine(i);
   }
@@ -96,7 +96,7 @@ public class Program {
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("━▶ ATUALIZAR GÊNERO ◀━");
     //LISTA AS OPÇÕES
-    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.ForegroundColor = ConsoleColor.Magenta;
     foreach(Genero i in NGenero.Listar())
       Console.WriteLine(i);
     //ID DO OBJETO A SER ATUALIZADO E A NOVA DESCRIÇÃO
@@ -118,15 +118,18 @@ public class Program {
     ConsoleColor foreground = Console.ForegroundColor;
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("━━▶ EXCLUIR GÊNERO ◀━");
-    Console.ForegroundColor = ConsoleColor.Red;
+    //LISTA AS OPÇÕES
+    Console.ForegroundColor = ConsoleColor.Magenta;
     foreach(Genero i in NGenero.Listar())
       Console.WriteLine(i);
-    
+    //PEDE O ID DO OBJETO A SER EXCLUÍDO
     Console.ForegroundColor = ConsoleColor.White;
     Console.Write("Id: ");
     int id = int.Parse(Console.ReadLine());
+    //INSTANCIA NOVO OBJETO COM ID INFORMADO
     Genero x = new Genero();
     x.Id = id;
+    //CHAMA O MÉTODO EXCLUIR COM A INSTANCIA COMO PARÂMETRO
     NGenero.Excluir(x);
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("Gênero Excluído ✔"); 
