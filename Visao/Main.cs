@@ -1,4 +1,5 @@
-using System; 
+using System;
+
 
 public class Program {
 
@@ -15,8 +16,8 @@ public class Program {
             // Gênero
             case 01 : GeneroInserir(); break;
             case 02 : GeneroListar(); break;
-            //case 03 : GeneroAtualizar(); break;
-            //case 04 : GeneroExcluir(); break;
+            case 03 : GeneroAtualizar(); break;
+            case 04 : GeneroExcluir(); break;
             // Livro
             //case 05 : LivroInserir(); break;
             //case 06 : LivroListar(); break;
@@ -66,20 +67,68 @@ public class Program {
   
   /*==========TRATAMENTO DE GÊNEROS=============*/
   public static void GeneroInserir(){
-    Genero novo = new Genero();
-    
-    
-    Console.WriteLine("\n-----| NOVO GÊNERO |-----");
+    ConsoleColor foreground = Console.ForegroundColor;
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("━━▶ NOVO GÊNERO ◀━━━");
+    Console.ForegroundColor = ConsoleColor.White;
+    //PEDE DADOS DO NOVO GÊNERO
     Console.Write("Descrição: ");
     string desc = Console.ReadLine();
+    //INSTANCIA NOVO OBJETO A SER INSERIDO
+    Genero novo = new Genero();
     novo.Descricao = desc;
+    //CHAMA O MÉTODO INSEIR COM O OBJETO COMO PARÂMETRO
     NGenero.Inserir(novo);
   }
 
   public static void GeneroListar(){
-    Console.WriteLine("\n-----| GÊNEROS |-----");
+    ConsoleColor foreground = Console.ForegroundColor;
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("━━━━▶  GÊNEROS  ◀━━━");
+    Console.ForegroundColor = ConsoleColor.Gray;
+    //FAZ A CHAMADA DO MÉTODO LISTA(), ESSE MÉTODO RETORNA UMA LISTA COM OS OBJETOS INSERIDOS ATÉ ENTÃO
     foreach(Genero i in NGenero.Listar())
       Console.WriteLine(i);
   }
+
+  public static void GeneroAtualizar(){
+    ConsoleColor foreground = Console.ForegroundColor;
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("━▶ ATUALIZAR GÊNERO ◀━");
+    //LISTA AS OPÇÕES
+    Console.ForegroundColor = ConsoleColor.Gray;
+    foreach(Genero i in NGenero.Listar())
+      Console.WriteLine(i);
+    //ID DO OBJETO A SER ATUALIZADO E A NOVA DESCRIÇÃO
+    Console.Write("Id: ");
+    int id = int.Parse(Console.ReadLine());
+    Console.Write("Descrição: ");
+    string desc = Console.ReadLine();
+    //INSTANCIA UM NOVO OBJETO COM ID E DESCRIÇÃO PEDIDOS
+    Genero x = new Genero();
+    x.Id = id;
+    x.Descricao = desc;
+    //CHAMA O MÉTODO ATUALIZAR COM A INSTÂNCIA
+    NGenero.Atualizar(x);
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("Gênero Atualizado ✔");
+  }
   
+  public static void GeneroExcluir(){
+    ConsoleColor foreground = Console.ForegroundColor;
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("━━▶ EXCLUIR GÊNERO ◀━");
+    Console.ForegroundColor = ConsoleColor.Red;
+    foreach(Genero i in NGenero.Listar())
+      Console.WriteLine(i);
+    
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.Write("Id: ");
+    int id = int.Parse(Console.ReadLine());
+    Genero x = new Genero();
+    x.Id = id;
+    NGenero.Excluir(x);
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("Gênero Excluído ✔"); 
+  }
 }

@@ -16,16 +16,18 @@ static class NGenero{
     return generos.OrderBy(obj => obj.Descricao).ToList();
   }
   public static void Atualizar(Genero g){
-    foreach(Genero i in generos)
-      if(i.Id == g.Id){
-        i.Descricao = g.Descricao;
-      }
+    Genero x = Pesquisar(g.Id);
+        x.Descricao = g.Descricao;
+      
   }
   public static void Excluir(Genero g){
-    Genero x = new Genero();
-    foreach(Genero i in generos)
-      if(i.Id == g.Id)
-        x = i;
+    Genero x = Pesquisar(g.Id);
     generos.Remove(x);
+  }
+  private static Genero Pesquisar(int id){
+    foreach(Genero i in generos){
+      if(i.Id == id) return i;
+    }
+    return null;
   }
 }
