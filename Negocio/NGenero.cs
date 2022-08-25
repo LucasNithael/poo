@@ -13,7 +13,7 @@ static class NGenero{
     generos.Add(g);
   }
   public static List<Genero> Listar(){
-    return generos.OrderBy(obj => obj.Descricao).ToList();
+    return generos.OrderBy(obj => obj.Id).ToList();
   }
   public static void Atualizar(Genero g){
     Genero x = Pesquisar(g.Id);
@@ -24,7 +24,7 @@ static class NGenero{
     Genero x = Pesquisar(g.Id);
     generos.Remove(x);
   }
-  private static Genero Pesquisar(int id){
+  public static Genero Pesquisar(int id){
     foreach(Genero i in generos){
       if(i.Id == id) return i;
     }

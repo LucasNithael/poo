@@ -19,8 +19,8 @@ public class Program {
             case 03 : GeneroAtualizar(); break;
             case 04 : GeneroExcluir(); break;
             // Livro
-            //case 05 : LivroInserir(); break;
-            //case 06 : LivroListar(); break;
+            case 05 : LivroInserir(); break;
+            case 06 : LivroListar(); break;
             //case 07 : LivroAtualizar(); break;
             //case 08 : LivroExcluir(); break;
             // Autor
@@ -49,10 +49,10 @@ public class Program {
      Console.ForegroundColor = ConsoleColor.DarkRed;
     Console.WriteLine("━━━━▶  LIVRO   ◀━━━━");
     Console.ForegroundColor = ConsoleColor.DarkBlue;
-    Console.WriteLine("▋  01 - Inserir    ▋");
-    Console.WriteLine("▋  02 - Listar     ▋");
-    Console.WriteLine("▋  03 - Atualizar  ▋");
-    Console.WriteLine("▋  04 - Excluir    ▋");
+    Console.WriteLine("▋  05 - Inserir    ▋");
+    Console.WriteLine("▋  06 - Listar     ▋");
+    Console.WriteLine("▋  07 - Atualizar  ▋");
+    Console.WriteLine("▋  08 - Excluir    ▋");
     Console.ForegroundColor = ConsoleColor.DarkRed;
     Console.WriteLine("━━━━▶  AUTOR   ◀━━━━");
     Console.ForegroundColor = ConsoleColor.DarkBlue;
@@ -79,6 +79,8 @@ public class Program {
     novo.Descricao = desc;
     //CHAMA O MÉTODO INSEIR COM O OBJETO COMO PARÂMETRO
     NGenero.Inserir(novo);
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("Genero Cadastrado ✔");
   }
 
   public static void GeneroListar(){
@@ -133,5 +135,52 @@ public class Program {
     NGenero.Excluir(x);
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("Gênero Excluído ✔"); 
+  }
+
+  /*============TRATAMENTO DE LIVRO=====================*/
+
+  public static void LivroInserir(){
+    ConsoleColor foreground = Console.ForegroundColor;
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("━━━▶ NOVO LIVRO ◀━━━");
+    //DADOS DO NOVO LIVRO A SER INSERIDO
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.Write("Título: ");
+    string titulo = Console.ReadLine();
+    Console.Write("Ano de lançamento: ");
+    int ano = int.Parse(Console.ReadLine());
+    //OPÇÕES DE GÊNERO QUE O LIVRO PERTENCE
+    GeneroListar();
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.Write("Id do Gênero: ");
+    int idgenero = int.Parse(Console.ReadLine());
+    //OPÇÕES DE AUTORES
+    //Console.ForegroundColor = ConsoleColor.Magenta;
+    //foreach(Genero i in NGenero.Listar())
+      //Console.WriteLine(i);
+    //Console.ForegroundColor = ConsoleColor.White;
+    //Console.WriteLine("Id do Gênero: ");
+    //int idautor = int.Parse(Console.ReadLine());
+    
+    //INSTÂNCIA DO NOVO OBJETO LIVRO, GENERO E AUTOR. GENERO E AUTOR SERVEM PARA RECUPERAR OS ID PARA INSERIR NO LIVRO
+    Genero genero = NGenero.Pesquisar(idgenero);
+    Livro novo = new Livro();
+    novo.Titulo = titulo;
+    novo.SetAnoLancamento(ano);
+    novo.IdGenero = genero.Id;
+    NLivro.Inserir(novo);
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("Livro Cadastrado ✔");
+  }
+
+  public static void LivroListar(){
+    ConsoleColor foreground = Console.ForegroundColor;
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("━━━━▶ LIVROS ◀━━━━");
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    foreach(Livro i in NLivro.Listar())
+      Console.WriteLine(i);
+    
+    
   }
 }

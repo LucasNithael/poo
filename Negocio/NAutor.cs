@@ -13,7 +13,7 @@ class NAutor{
     autores.Add(obj);
   }
   public List<Autor> Listar(){
-    return autores.OrderBy(obj => obj.Nome).ToList();
+    return autores.OrderBy(obj => obj.Id).ToList();
   }
   public void Atualizar(Autor obj){
     foreach(Autor i in autores)
