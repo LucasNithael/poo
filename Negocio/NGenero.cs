@@ -25,9 +25,8 @@ static class NGenero{
     generos.Remove(x);
   }
   public static Genero Pesquisar(int id){
-    foreach(Genero i in generos){
+    foreach(Genero i in generos)
       if(i.Id == id) return i;
-    }
     return null;
   }
 }

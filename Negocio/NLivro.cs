@@ -16,17 +16,16 @@ static class NLivro{
     return livros.OrderBy(obj => obj.Id).ToList();
   }
   public static void Atualizar(Livro obj){
-    foreach(Livro i in livros)
-      if(i.Id == obj.Id){
-        i.Titulo = obj.Titulo;
-        i.SetAnoLancamento(obj.GetAnoLancamento());
-      }
+    Livro x = Pesquisar(obj.Id);
+    x.Titulo = obj.Titulo;
   }
   public static void Excluir(Livro obj){
-    Livro x = new Livro();
-    foreach(Livro i in livros)
-      if(i.Id == obj.Id)
-        x = i;
+    Livro x = Pesquisar(obj.Id);
     livros.Remove(x);
+  }
+  public static Livro Pesquisar(int id){
+    foreach(Livro i in livros)
+      if(i.Id == id) return i;
+    return null;
   }
 }
