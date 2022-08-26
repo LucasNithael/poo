@@ -5,8 +5,68 @@ public class Program {
 
   public static void Main(){
   
-    MainAdmin();
+    //MainAdmin();
+    MainLeitor();
   }
+  /*-----------------MENU DO LEITOR------------------------*/
+  public static void MainLeitor() {
+    int op = 0;
+    do {
+      try {
+        op = MenuLeitor();
+        switch (op) {
+            // Gênero
+            case 01 : GeneroInserir(); break;
+            case 02 : GeneroListar(); break;
+            case 03 : GeneroAtualizar(); break;
+            case 04 : GeneroExcluir(); break;
+  
+          }
+      }
+      catch (Exception erro) {
+        Console.WriteLine(erro.GetType() + "\n" + erro.Message);      
+      }
+    } while (op != 99);
+  }
+
+   public static int MenuLeitor() {
+    Cor.Magenta();
+    Console.WriteLine("\n∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
+    Console.Write("∷∷∷∷∷∷ ");
+    Cor.Green();
+    Console.Write("O QUE DESEJA?");
+    Cor.Magenta();
+    Console.Write(" ∷∷∷∷∷∷\n");
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷\n");
+    Cor.DarkRed();
+    Console.WriteLine("━━━━━━━━▶  GÊNERO  ◀━━━━━━━");
+    Cor.DarkBlue();
+    Console.WriteLine("▋  01 - Listar Gêneros    ▋");
+    Console.WriteLine("▋  02 - Buscar Gênero     ▋");
+    Cor.DarkRed(); 
+    Console.WriteLine("━━━━━━━━▶  AUTOR   ◀━━━━━━━");
+    Cor.DarkBlue(); 
+    Console.WriteLine("▋  03 - Listar Autores    ▋");
+    Console.WriteLine("▋  04 - Buscar Autor      ▋");
+    Cor.DarkRed();
+    Console.WriteLine("━━━━━━━━▶  LIVRO   ◀━━━━━━━"); 
+    Cor.DarkBlue();
+    Console.WriteLine("▋  05 - Escolher Livro    ▋");
+    Console.WriteLine("▋  06 - Listar Livros     ▋");
+    Console.WriteLine("▋  07 - Buscar Livro      ▋");
+    Cor.DarkRed(); 
+    Console.WriteLine("━━━━━━━━▶  LEITURA ◀━━━━━━━"); 
+    Cor.DarkBlue();
+    Console.WriteLine("▋  08 - Listar Leitura    ▋");
+    Console.WriteLine("▋  09 - Fechar Leitura    ▋");
+    Console.WriteLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    Console.WriteLine("▋  99 - Logout            ▋");
+    Console.WriteLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    Cor.White();
+    Console.Write("Opção: ");
+    return int.Parse(Console.ReadLine());    
+  }
+  /*------------------MENU DO ADMIN------------------------*/
   public static void MainAdmin() {
     int op = 0;
     do {
@@ -28,6 +88,9 @@ public class Program {
             case 10 : AutorListar(); break;
             case 11 : AutorAtualizar(); break;
             case 12 : AutorExcluir(); break;
+            // Leitor
+            case 13 : LeitorListar(); break;
+            case 14 : LeitorExcluir(); break;
           }
       }
       catch (Exception erro) {
@@ -59,10 +122,15 @@ public class Program {
     Console.WriteLine("▋  10 - Listar     ▋");
     Console.WriteLine("▋  11 - Atualizar  ▋");
     Console.WriteLine("▋  12 - Excluir    ▋");
+    Cor.DarkRed();
+    Console.WriteLine("━━━━▶  LEITOR  ◀━━━━");
     Cor.DarkBlue();
+    Console.WriteLine("▋  13 - Listar     ▋");
+    Console.WriteLine("▋  14 - Excluir    ▋");
     Console.WriteLine("━━━━━━━━━━━━━━━━━━━━");
     Console.WriteLine("▋  99 - Logout     ▋");
     Console.WriteLine("━━━━━━━━━━━━━━━━━━━━");
+    Cor.White();
     Console.Write("Opção: ");
     return int.Parse(Console.ReadLine());    
   }
@@ -282,5 +350,26 @@ public class Program {
     NAutor.Excluir(x);
     Cor.Green();
     Console.WriteLine("Autor Excluído ✔");
+  }
+  /*============TRATAMENTO DE LEITOR ===========*/
+  public static void LeitorListar(){
+    Cor.Yellow();
+    Console.WriteLine("━━━━▶  LEITORES  ◀━━━━");
+    Cor.Magenta();
+    foreach(Livro i in NLivro.Listar())
+      Console.WriteLine(i);
+  }
+  public static void LeitorExcluir(){
+    Cor.Yellow();
+    Console.WriteLine("━━━━▶ EXCLUIR LEITOR ◀━━━━");
+    Cor.Magenta();
+    foreach(Leitor i in NLeitor.Listar())
+      Console.WriteLine(i);
+    Cor.White();
+    Console.Write("Id: ");
+    int id = int.Parse(Console.ReadLine());
+    Leitor x = NLeitor.Pesquisar(id);
+    NLeitor.Excluir(x);
+    Console.WriteLine("Leitor Excluído ✔");
   }
 }
