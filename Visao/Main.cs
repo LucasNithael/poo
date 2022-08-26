@@ -25,9 +25,9 @@ public class Program {
             case 08 : LivroExcluir(); break;
             // Autor
             case 09 : AutorInserir(); break;
-            //case 10 : AutorListar(); break;
-            //case 11 : AutorAtualizar(); break;
-            //case 12 : AutorExcluir(); break;
+            case 10 : AutorListar(); break;
+            case 11 : AutorAtualizar(); break;
+            case 12 : AutorExcluir(); break;
           }
       }
       catch (Exception erro) {
@@ -101,6 +101,7 @@ public class Program {
     foreach(Genero i in NGenero.Listar())
       Console.WriteLine(i);
     //ID DO OBJETO A SER ATUALIZADO E A NOVA DESCRIÇÃO
+    Cor.White();
     Console.Write("Id: ");
     int id = int.Parse(Console.ReadLine());
     Console.Write("Descrição: ");
@@ -147,24 +148,28 @@ public class Program {
     Console.Write("Ano de lançamento: ");
     int ano = int.Parse(Console.ReadLine());
     //OPÇÕES DE GÊNERO QUE O LIVRO PERTENCE
-    GeneroListar();
+    Cor.Magenta();
+    foreach(Genero i in NGenero.Listar())
+      Console.WriteLine(i);
     Cor.White();
     Console.Write("Id do Gênero: ");
     int idgenero = int.Parse(Console.ReadLine());
     //OPÇÕES DE AUTORES
-    //Console.ForegroundColor = ConsoleColor.Magenta;
-    //foreach(Genero i in NGenero.Listar())
-      //Console.WriteLine(i);
-    //Console.ForegroundColor = ConsoleColor.White;
-    //Console.WriteLine("Id do Gênero: ");
-    //int idautor = int.Parse(Console.ReadLine());
+    Cor.Magenta();
+    foreach(Autor i in NAutor.Listar())
+      Console.WriteLine(i);
+    Cor.White();
+    Console.Write("Id do Autor: ");
+    int idautor = int.Parse(Console.ReadLine());
     
     //INSTÂNCIA DO NOVO OBJETO LIVRO, GENERO E AUTOR. GENERO E AUTOR SERVEM PARA RECUPERAR OS ID PARA INSERIR NO LIVRO
     Genero genero = NGenero.Pesquisar(idgenero);
+    Autor autor = NAutor.Pesquisar(idautor);
     Livro novo = new Livro();
     novo.Titulo = titulo;
     novo.SetAnoLancamento(ano);
     novo.IdGenero = genero.Id;
+    novo.IdAutor = autor.Id;
     NLivro.Inserir(novo);
     Cor.Green();
     Console.WriteLine("Livro Cadastrado ✔");
@@ -236,5 +241,46 @@ public class Program {
     NAutor.Inserir(novo);
     Cor.Green();
     Console.WriteLine("Autor Cadastrado ✔");
+  }
+
+  public static void AutorListar(){
+    Cor.Yellow();
+    Console.WriteLine("━━━━▶ AUTORES ◀━━━━");
+    Cor.Magenta();
+    foreach(Autor i in NAutor.Listar())
+      Console.WriteLine(i);
+  }
+
+  public static void AutorAtualizar(){
+    Cor.Yellow();
+    Console.WriteLine("━━━━▶ ATUALIZAR AUTOR ◀━━━━");
+    Cor.Magenta();
+    foreach(Autor i in NAutor.Listar())
+      Console.WriteLine(i);
+    Cor.White();
+    Console.Write("Id: ");
+    int id = int.Parse(Console.ReadLine());
+    Console.Write("Novo nome: ");
+    string nome = Console.ReadLine();
+    Autor x = NAutor.Pesquisar(id);
+    x.Nome = nome;
+    NAutor.Atualizar(x);
+    Cor.Green();
+    Console.WriteLine("Autor Atualizado ✔"); 
+  }
+
+  public static void AutorExcluir(){
+    Cor.Yellow();
+    Console.WriteLine("━━━━▶ EXCLUIR AUTOR ◀━━━━");
+    Cor.Magenta();
+    foreach(Autor i in NAutor.Listar())
+      Console.WriteLine(i);
+    Cor.White();
+    Console.Write("Id: ");
+    int id = int.Parse(Console.ReadLine());
+    Autor x = NAutor.Pesquisar(id);
+    NAutor.Excluir(x);
+    Cor.Green();
+    Console.WriteLine("Autor Excluído ✔");
   }
 }

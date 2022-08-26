@@ -16,6 +16,7 @@ class Livro{
   }
   public override string ToString(){
     Genero genero = NGenero.Pesquisar(IdGenero);
-    return $"{Id} - {Titulo} - {anoLancamento} - Genero: {genero.Descricao}";
+    Autor autor = NAutor.Pesquisar(IdAutor);
+    return $"{Id} - {Titulo} - {anoLancamento} - Autor(a): {autor.Nome} - Gênero: {genero.Descricao}";
   }
 }
