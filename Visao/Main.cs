@@ -4,11 +4,41 @@ using System;
 public class Program {
 
   public static void Main(){
-  
-    MainAdmin();
-   // MainLeitor();
+    //Cadastro();
+   // MainAdmin();
+    MainLeitor();
   }
   /*-----------------MENU DO LEITOR------------------------*/
+  public static void Cadastro(){
+    try{
+    Console.WriteLine("———————————————————————————");
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷∷∷∷【CADASTRO】∷∷∷∷∷∷∷");
+    Cor.White();
+    Console.Write("▶ Seu nome: ");
+    string nome = Console.ReadLine();
+    Console.Write("▶ Nome de usuário: ");
+    string nomeusuario = Console.ReadLine();
+    Console.Write("▶ Senha: ");
+    string senha = Console.ReadLine();
+    
+    Usuario u = new Usuario();
+    u.NomeUsuario = nomeusuario;
+    u.Senha = senha;
+
+    NUsuario.Inserir(u);
+    Cor.Green();
+    Console.WriteLine("Usuário Cadastro ✔");
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(ArgumentOutOfRangeException){
+      Cor.DarkRed();
+      Console.WriteLine("Usuário já existe ✘");
+      Cor.White();
+      Cadastro();
+    }
+  }
   public static void MainLeitor() {
     int op = 0;
     do {
@@ -28,7 +58,7 @@ public class Program {
             //Leitura
             //case 08 : LeituraListar(); break;
             //case 09 : LeituraFechar(); break;
-
+          case 10: Cadastro(); break;
           }
       }
       catch (Exception erro) {
