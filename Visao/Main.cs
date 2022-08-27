@@ -16,17 +16,25 @@ public class Program {
         op = MenuLeitor();
         switch (op) {
             // Gênero
-            case 01 : GeneroInserir(); break;
-            case 02 : GeneroListar(); break;
-            case 03 : GeneroAtualizar(); break;
-            case 04 : GeneroExcluir(); break;
-  
+            case 01 : GeneroListar(); break;
+            //case 02 : GeneroBuscar(); break;
+            //Autor
+            //case 03 : AutorListar(); break;
+            //case 04 : AutorBuscar(); break;
+            //Livro
+            //case 05 : LivroEscolher(); break;
+            //case 06 : LivroListar(); break;
+            //case 07 : LivroBuscar(); break;
+            //Leitura
+            //case 08 : LeituraListar(); break;
+            //case 09 : LeituraFechar(); break;
+
           }
       }
       catch (Exception erro) {
         Console.WriteLine(erro.GetType() + "\n" + erro.Message);      
       }
-    } while (op != 99);
+    } while (op != 00);
   }
 
    public static int MenuLeitor() {
@@ -62,7 +70,7 @@ public class Program {
     Console.WriteLine("⣿  08 - Listar Leitura    ⣿");
     Console.WriteLine("⣿  09 - Fechar Leitura    ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
-    Console.WriteLine("⣿  99 - Logout            ⣿");
+    Console.WriteLine("⣿  00 - Logout            ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
     Cor.White();
     Console.Write("Opção: ");
@@ -98,40 +106,49 @@ public class Program {
       catch (Exception erro) {
         Console.WriteLine(erro.GetType() + "\n" + erro.Message);      
       }
-    } while (op != 99);
+    } while (op != 00);
   }
 
    public static int MenuAdmin() {
-    Console.WriteLine();
+    Cor.Magenta();
+    Console.WriteLine("\n∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
+    Console.Write("∷∷∷∷∷∷ ");
+    Cor.Green();
+    Console.Write("O QUE DESEJA?");
+    Cor.Magenta();
+    Console.Write(" ∷∷∷∷∷∷\n");
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
     Cor.DarkRed();
-    Console.WriteLine("━━━━▶  GÊNERO  ◀━━━━");
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【GÊNERO】∷∷∷∷∷∷∷∷");
     Cor.DarkBlue();
-    Console.WriteLine("▋  01 - Inserir    ▋");
-    Console.WriteLine("▋  02 - Listar     ▋");
-    Console.WriteLine("▋  03 - Atualizar  ▋");
-    Console.WriteLine("▋  04 - Excluir    ▋");
+    Console.WriteLine("⣿  01 - Inserir           ⣿");
+    Console.WriteLine("⣿  02 - Listar Gêneros    ⣿");
+    Console.WriteLine("⣿  03 - Atualizar         ⣿");
+    Console.WriteLine("⣿  04 - Excluir           ⣿");
     Cor.DarkRed();
-    Console.WriteLine("━━━━▶  LIVRO   ◀━━━━");
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVRO】∷∷∷∷∷∷∷∷∷");
     Cor.DarkBlue();
-    Console.WriteLine("▋  05 - Inserir    ▋");
-    Console.WriteLine("▋  06 - Listar     ▋");
-    Console.WriteLine("▋  07 - Atualizar  ▋");
-    Console.WriteLine("▋  08 - Excluir    ▋");
+    Console.WriteLine("⣿  05 - Inserir           ⣿");
+    Console.WriteLine("⣿  06 - Listar            ⣿");
+    Console.WriteLine("⣿  07 - Atualizar         ⣿");
+    Console.WriteLine("⣿  08 - Excluir           ⣿");
     Cor.DarkRed();
-    Console.WriteLine("━━━━▶  AUTOR   ◀━━━━");
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【AUTOR】∷∷∷∷∷∷∷∷∷");
     Cor.DarkBlue();
-    Console.WriteLine("▋  09 - Inserir    ▋");
-    Console.WriteLine("▋  10 - Listar     ▋");
-    Console.WriteLine("▋  11 - Atualizar  ▋");
-    Console.WriteLine("▋  12 - Excluir    ▋");
+    Console.WriteLine("⣿  09 - Inserir           ⣿");
+    Console.WriteLine("⣿  10 - Listar            ⣿");
+    Console.WriteLine("⣿  11 - Atualizar         ⣿");
+    Console.WriteLine("⣿  12 - Excluir           ⣿");
     Cor.DarkRed();
-    Console.WriteLine("━━━━▶  LEITOR  ◀━━━━");
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【LEITOR】∷∷∷∷∷∷∷∷");
     Cor.DarkBlue();
-    Console.WriteLine("▋  13 - Listar     ▋");
-    Console.WriteLine("▋  14 - Excluir    ▋");
-    Console.WriteLine("━━━━━━━━━━━━━━━━━━━━");
-    Console.WriteLine("▋  99 - Logout     ▋");
-    Console.WriteLine("━━━━━━━━━━━━━━━━━━━━");
+    Console.WriteLine("⣿  13 - Listar            ⣿");
+    Console.WriteLine("⣿  14 - Excluir           ⣿");
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
+    Console.WriteLine("⣿  00 - Logout            ⣿");
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
     Cor.White();
     Console.Write("Opção: ");
     return int.Parse(Console.ReadLine());    
