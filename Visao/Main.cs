@@ -309,6 +309,7 @@ public class Program {
   }
 
   public static void GeneroAtualizar(){
+    try{
     Console.WriteLine("———————————————————————————");
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷【ATUALIZAR GÊNERO】∷∷∷");
@@ -332,9 +333,18 @@ public class Program {
     Console.WriteLine("Gênero Atualizado ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Não Há Gêneros ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
   
   public static void GeneroExcluir(){
+    try{
     Console.WriteLine("———————————————————————————");
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷【EXCLUIR GÊNERO】∷∷∷∷");
@@ -355,6 +365,14 @@ public class Program {
     Console.WriteLine("Gênero Excluído ✔"); 
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+    catch(ArgumentOutOfRangeException){
+      Cor.DarkRed();
+      Console.WriteLine("Não Há Gêneros ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
 
   /*============TRATAMENTO DE LIVRO=====================*/
