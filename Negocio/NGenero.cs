@@ -18,11 +18,11 @@ static class NGenero{
   }
   public static List<Genero> Listar(){
     generos = Abrir();
-    return generos.OrderBy(obj => obj.Id).ToList();
+    if(generos.Count == 0) throw new NullReferenceException("Não existe Gêneros");
+    else return generos;
   }
   public static void Atualizar(Genero g){
     Genero x = Pesquisar(g.Id);
-    if(x==null) throw new NullReferenceException("Não existe Gêneros");
     x.Descricao = g.Descricao;
       
   }
@@ -32,11 +32,9 @@ static class NGenero{
       generos.Remove(x);
       Salvar(generos);
     }
-    else throw new ArgumentOutOfRangeException("Não existe Gêneros");
   }
   public static Genero Pesquisar(int id){
-    generos = Abrir();
-    foreach(Genero i in generos)
+    foreach(Genero i in Listar())
       if(i.Id == id) return i;
     return null;
   }

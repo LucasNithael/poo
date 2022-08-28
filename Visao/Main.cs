@@ -297,6 +297,7 @@ public class Program {
   }
 
   public static void GeneroListar(){
+    try{
     Console.WriteLine("———————————————————————————");
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷∷∷∷【GÊNEROS】∷∷∷∷∷∷∷∷");
@@ -306,6 +307,14 @@ public class Program {
       Console.WriteLine(i);
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Não Há Gêneros ✘");
+      Cor.White();
+   Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
 
   public static void GeneroAtualizar(){
@@ -366,7 +375,7 @@ public class Program {
     Cor.White();
     Console.WriteLine("———————————————————————————");
     }
-    catch(ArgumentOutOfRangeException){
+    catch(NullReferenceException){
       Cor.DarkRed();
       Console.WriteLine("Não Há Gêneros ✘");
       Cor.White();
