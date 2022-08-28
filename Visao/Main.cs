@@ -21,11 +21,15 @@ public class Program {
     string nomeusuario = Console.ReadLine();
     Console.Write("▶ Senha: ");
     string senha = Console.ReadLine();
-    
+
     Usuario u = new Usuario();
     u.NomeUsuario = nomeusuario;
     u.Senha = senha;
-
+    Leitor l = new Leitor();
+    l.Nome = nome;
+    l.IdUsuario = u.Id;
+    NLeitor.Inserir(l);
+      
     NUsuario.Inserir(u);
     Cor.Green();
     Console.WriteLine("Usuário Cadastro ✔");
