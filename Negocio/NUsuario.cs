@@ -13,7 +13,11 @@ static class NUsuario{
     u.Id = id;
     usuarios.Add(u);
   }
-  public static void Autenticar(Usuario u){
-    
+  public static Usuario Autenticar(string usuario, string senha){
+    Usuario u = new Usuario();
+    foreach(Usuario i in usuarios)
+      if(i.NomeUsuario == usuario && i.Senha == senha)
+        return i;
+    return null;
   }
 }

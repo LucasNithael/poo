@@ -28,4 +28,11 @@ static class NLivro{
       if(i.Id == id) return i;
     return null;
   }
+  public static List<Livro> ListarLivroGenero(Genero g){
+    List<Livro> r = new List<Livro>();
+    foreach(Livro i in livros)
+      if(i.IdGenero == g.Id)
+        r.Add(i);
+    return r;
+  }
 }

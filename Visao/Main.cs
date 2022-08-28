@@ -2,12 +2,58 @@ using System;
 
 
 public class Program {
-
+  private static bool adminLogado = false;
+  private static Leitor leitorLogado = null;
+  
+  public static void InserirAdmin() {
+    Usuario u = new Usuario();
+    u.NomeUsuario = "admin";
+    u.Senha = "admin";
+    u.Admin = true;
+    NUsuario.Inserir(u);
+  }
+  
   public static void Main(){
+    InserirAdmin();    
+    Console.WriteLine("--- Bem-vindo ao IFShop ---");
+    int op = 0;
+    do {
+      try {
+        op = Menu();
+        switch (op) {
+            // Categoria
+            case 01 : 
+              if (Login()) { 
+                if (adminLogado) MainAdmin();
+                else MainLeitor();
+              }
+              else 
+                Console.WriteLine("Usuário ou senha inválidos");
+              break;
+            case 02 : Cadastro(); break;
+        }
+      }
+      catch (Exception erro) {
+        Console.WriteLine(erro.Message);      
+      }
+    } while (op != 99);
+  }
     //Cadastro();
    // MainAdmin();
-    MainLeitor();
-  }
+    //MainLeitor();
+  
+
+   public static int Menu() {
+    Console.WriteLine();
+    Console.WriteLine("----- Selecione ------");
+    Console.WriteLine("  01 - Login");
+    Console.WriteLine("  02 - Cadastrar-se");
+    Console.WriteLine("----------------------");
+    Console.WriteLine("  99 - Sair");
+    Console.WriteLine("----------------------");
+    Console.Write("Opção: ");
+    return int.Parse(Console.ReadLine());
+   }
   /*-----------------MENU DO LEITOR------------------------*/
   public static void Cadastro(){
     try{
@@ -29,8 +75,8 @@ public class Program {
     l.Nome = nome;
     l.IdUsuario = u.Id;
     NLeitor.Inserir(l);
-      
     NUsuario.Inserir(u);
+    
     Cor.Green();
     Console.WriteLine("Usuário Cadastro ✔");
     Cor.White();
@@ -43,6 +89,22 @@ public class Program {
       Cadastro();
     }
   }
+  public static bool Login(){
+    Console.WriteLine("Informe o nome");
+    string nome = Console.ReadLine();
+    Console.WriteLine("Informe a senha");
+    string senha = Console.ReadLine();
+    Usuario u = NUsuario.Autenticar(nome, senha);
+    if (u != null) {
+      // Alguém logou! true -> admin, false -> cliente
+      adminLogado = u.Admin;
+      // Cliente logado se estiver no cadastro de clientes
+      // o id do usuário informado
+      leitorLogado = NLeitor.Pesquisar(u.Id); 
+      return true;
+    }
+    return false;
+  }
   public static void MainLeitor() {
     int op = 0;
     do {
@@ -50,7 +112,7 @@ public class Program {
         op = MenuLeitor();
         switch (op) {
             // Gênero
-            case 01 : GeneroListar(); break;
+            case 01 : LeitorGeneroListar(); break;
             //case 02 : GeneroBuscar(); break;
             //Autor
             //case 03 : AutorListar(); break;
@@ -185,6 +247,35 @@ public class Program {
   }
   
   /*==========TRATAMENTO DE GÊNEROS=============*/
+  public static void LeitorGeneroListar(){
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【GÊNEROS】∷∷∷∷∷∷∷");
+    Cor.Magenta();
+    foreach(Genero i in NGenero.Listar())
+      Console.WriteLine(i);
+    Cor.White();
+    Console.Write("▶ Qual Gênero: ");
+    int id = int.Parse(Console.ReadLine());
+    Genero g = NGenero.Pesquisar(id);
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
+    Cor.Magenta();
+    foreach(Livro i in NLivro.ListarLivroGenero(g))
+      Console.WriteLine(i);
+    Cor.White();
+    Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
+    int idlivro = int.Parse(Console.ReadLine());
+    if(idlivro==0){ 
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainLeitor();
+    }
+    else{
+      Livro l = NLivro.Pesquisar(idlivro);
+    }
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+  }
   public static void GeneroInserir(){
     Console.WriteLine("———————————————————————————");
     Cor.Yellow();
