@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfLeitura xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Leitura>
+    <Id>1</Id>
+    <DataInicio>0001-01-01T00:00:00</DataInicio>
+    <DataFIm>0001-01-01T00:00:00</DataFIm>
+    <IdLivro>1</IdLivro>
+    <IdUsuario>2</IdUsuario>
+  </Leitura>
+</ArrayOfLeitura>

@@ -5,4 +5,9 @@
     <Nome>Lucas</Nome>
     <IdUsuario>0</IdUsuario>
   </Leitor>
+  <Leitor>
+    <Id>2</Id>
+    <Nome>Maria</Nome>
+    <IdUsuario>0</IdUsuario>
+  </Leitor>
 </ArrayOfLeitor>

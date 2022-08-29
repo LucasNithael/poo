@@ -5,6 +5,6 @@ public class Leitura{
   public DateTime DataInicio{get;set;}
   public DateTime DataFIm{get;set;}
   public int IdLivro{get;set;}
-  public int IdLeitura{get;set;}
+  public int IdUsuario{get;set;}
   public string Situacao{get;set;}
 }

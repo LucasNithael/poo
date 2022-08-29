@@ -37,10 +37,7 @@ public class Program {
       }
     } while (op != 99);
   }
-    //Cadastro();
-   // MainAdmin();
-    //MainLeitor();
-  
+
 
    public static int Menu() {
     Cor.White();
@@ -279,15 +276,18 @@ public class Program {
   
   /*==========TRATAMENTO DE GÊNEROS=============*/
   public static void LeitorGeneroListar(){
+    try{
     GeneroListar();
     Console.Write("▶ Qual Gênero: ");
     int id = int.Parse(Console.ReadLine());
     Genero g = NGenero.Pesquisar(id);
+    Cor.White();          
+    Console.WriteLine("———————————————————————————");  
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
     Cor.Magenta();
     foreach(Livro i in NLivro.ListarLivroGenero(g))
-      Console.WriteLine(i);
+      Console.WriteLine($"{i.Id} - {i.Titulo}");
     Cor.White();
     Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
     int idlivro = int.Parse(Console.ReadLine());
@@ -298,9 +298,23 @@ public class Program {
     }
     else{
       Livro l = NLivro.Pesquisar(idlivro);
+      Leitura nova = new Leitura();
+      nova.IdLivro = l.Id;
+      nova.IdUsuario = leitorLogado.Id;
+      NLeitura.Inserir(nova);
     }
+    Cor.Green();
+    Console.WriteLine("Livro Selecionado ✔"); 
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+    catch(ArgumentOutOfRangeException){
+      Cor.DarkRed();
+      Console.WriteLine("Livro Já Selecionado ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeitorGeneroListar();
+    }
   }
   public static void GeneroInserir(){
     Console.WriteLine("———————————————————————————");

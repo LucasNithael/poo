@@ -39,7 +39,8 @@ static class NGenero{
       if(i.Id == id) return i;
     return null;
   }
-  
+
+  //Parte dos arquvos
   private static string arquivo = "Arquivos/generos.xml";
   
   private static List<Genero> Abrir() {
