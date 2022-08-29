@@ -9,6 +9,10 @@ static class NLivro{
   public static void Inserir(Livro l){
     livros = Abrir();
     int id = 0;
+    foreach(Livro i in livros){
+      if(i.Titulo.ToUpper() == l.Titulo.ToUpper())
+       throw new NullReferenceException("Livro já Cadastrado"); 
+    }
     foreach(Livro i in livros)
       if(i.Id > id) id = i.Id;
     id++;

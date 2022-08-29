@@ -7,4 +7,11 @@
     <IdLivro>1</IdLivro>
     <IdUsuario>2</IdUsuario>
   </Leitura>
+  <Leitura>
+    <Id>2</Id>
+    <DataInicio>0001-01-01T00:00:00</DataInicio>
+    <DataFIm>0001-01-01T00:00:00</DataFIm>
+    <IdLivro>2</IdLivro>
+    <IdUsuario>2</IdUsuario>
+  </Leitura>
 </ArrayOfLeitura>

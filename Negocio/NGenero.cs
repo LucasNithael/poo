@@ -10,11 +10,21 @@ static class NGenero{
     generos = Abrir();
     int id = 0;
     foreach(Genero i in generos)
+      if(i.Descricao.ToUpper() == g.Descricao.ToUpper())
+        throw new NullReferenceException("Gênero Já Cadastrado");
+    
+    foreach(Genero i in generos)
       if(i.Id > id) id = i.Id;
     id++;
     g.Id = id;
     generos.Add(g);
     Salvar(generos);
+  }
+  public static Genero Buscar(string s){
+    foreach(Genero i in Listar()){
+      if(i.Descricao.ToUpper() == s.ToUpper()) return i;
+    }
+    return null;
   }
   public static List<Genero> Listar(){
     generos = Abrir();

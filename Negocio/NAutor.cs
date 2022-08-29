@@ -10,6 +10,9 @@ static class NAutor{
     autores = Abrir();
     int id = 0;
     foreach(Autor i in autores)
+      if(i.Nome.ToUpper()== obj.Nome.ToUpper())
+        throw new NullReferenceException("Autor já Cadastrado");
+    foreach(Autor i in autores)
       if(i.Id > id) id = i.Id;
     id++;
     obj.Id = id;

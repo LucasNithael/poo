@@ -141,7 +141,7 @@ public class Program {
         switch (op) {
             // Gênero
             case 01 : LeitorGeneroListar(); break;
-            //case 02 : GeneroBuscar(); break;
+            case 02 : GeneroBuscar(); break;
             //Autor
             //case 03 : AutorListar(); break;
             //case 04 : AutorBuscar(); break;
@@ -275,6 +275,67 @@ public class Program {
   }
   
   /*==========TRATAMENTO DE GÊNEROS=============*/
+  public static void GeneroBuscar(){
+    try{
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷【BUSCAR GÊNERO】∷∷∷∷∷");
+    Cor.White();
+    Console.Write("▶ Digite Sua Busca 🔎 ou 0\n  para sair: ");
+    string busca = Console.ReadLine();
+    Genero g = NGenero.Buscar(busca);
+    if(g==null){
+      Cor.DarkRed();
+      Console.WriteLine("Gênero não encontrado ✘");
+      Cor.White();
+      Console.WriteLine("Deseja fazer uma nova busca: S/N ");
+      string resp = Console.ReadLine();
+      if(resp.ToUpper() == "N".ToUpper()) MainLeitor();
+      GeneroBuscar();
+    }
+    Cor.Magenta();
+    Console.WriteLine(g);
+    Cor.White();
+    Console.Write("▶ Deseja Listar os Livros\n  do Gênero? S/N ");
+    string res = Console.ReadLine();
+    if(res.ToUpper() == "N".ToUpper()) MainLeitor();
+  
+    Cor.White();          
+    Console.WriteLine("———————————————————————————");  
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
+    Cor.Magenta();
+    foreach(Livro i in NLivro.ListarLivroGenero(g))
+      Console.WriteLine($"{i.Id} - {i.Titulo} - Autor: {NAutor.Pesquisar(i.IdAutor).Nome}");
+    Cor.White();
+    Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
+    int idlivro = int.Parse(Console.ReadLine());
+    if(idlivro==0){ 
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainLeitor();
+    }
+    Livro l = NLivro.Pesquisar(idlivro);
+    Leitura nova = new Leitura();
+    nova.IdLivro = l.Id;
+    nova.IdUsuario = leitorLogado.Id;
+    NLeitura.Inserir(nova);
+    
+    Cor.Green();
+    Console.WriteLine("Livro Selecionado ✔"); 
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(ArgumentOutOfRangeException){
+      Cor.DarkRed();
+      Console.WriteLine("Livro Já Selecionado ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeitorGeneroListar();
+    }
+    
+    Console.WriteLine("———————————————————————————");
+  }
+  
   public static void LeitorGeneroListar(){
     try{
     GeneroListar();
@@ -287,7 +348,7 @@ public class Program {
     Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
     Cor.Magenta();
     foreach(Livro i in NLivro.ListarLivroGenero(g))
-      Console.WriteLine($"{i.Id} - {i.Titulo}");
+      Console.WriteLine($"{i.Id} - {i.Titulo} - Autor: {NAutor.Pesquisar(i.IdAutor).Nome}");
     Cor.White();
     Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
     int idlivro = int.Parse(Console.ReadLine());
@@ -317,6 +378,7 @@ public class Program {
     }
   }
   public static void GeneroInserir(){
+    try{
     Console.WriteLine("———————————————————————————");
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷∷【NOVO GÊNERO】∷∷∷∷∷∷");
@@ -334,6 +396,14 @@ public class Program {
     Console.WriteLine("Gênero Cadastrado ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Gênero já Cadastrado ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
 
   public static void GeneroListar(){
@@ -427,6 +497,7 @@ public class Program {
   /*============TRATAMENTO DE LIVRO=====================*/
 
   public static void LivroInserir(){
+    try{
     Console.WriteLine("———————————————————————————");
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷【CADASTRAR LIVRO】∷∷∷∷");
@@ -434,8 +505,8 @@ public class Program {
     Cor.White();
     Console.Write("▶ Título: ");
     string titulo = Console.ReadLine();
-    Console.Write("▶ Ano de lançamento: ");
-    int ano = int.Parse(Console.ReadLine());
+    //Console.Write("▶ Ano de lançamento: ");
+    //int ano = int.Parse(Console.ReadLine());
     //OPÇÕES DE GÊNERO QUE O LIVRO PERTENCE
     Cor.Magenta();
     foreach(Genero i in NGenero.Listar())
@@ -450,13 +521,12 @@ public class Program {
     Cor.White();
     Console.Write("▶ Id do Autor: ");
     int idautor = int.Parse(Console.ReadLine());
-    
     //INSTÂNCIA DO NOVO OBJETO LIVRO, GENERO E AUTOR. GENERO E AUTOR SERVEM PARA RECUPERAR OS ID PARA INSERIR NO LIVRO
     Genero genero = NGenero.Pesquisar(idgenero);
     Autor autor = NAutor.Pesquisar(idautor);
     Livro novo = new Livro();
     novo.Titulo = titulo;
-    novo.SetAnoLancamento(ano);
+    //novo.SetAnoLancamento(ano);
     novo.IdGenero = genero.Id;
     novo.IdAutor = autor.Id;
     NLivro.Inserir(novo);
@@ -464,6 +534,14 @@ public class Program {
     Console.WriteLine("Livro Cadastrado ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
+      }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Livro já Cadastrado ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
 
   public static void LivroListar(){
@@ -472,7 +550,7 @@ public class Program {
     Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
     Cor.Magenta();
     foreach(Livro i in NLivro.Listar())
-      Console.WriteLine(i);
+      Console.WriteLine($"{i.Id} - {i.Titulo} - Autor: {NAutor.Pesquisar(i.IdAutor).Nome} - Gênero: {NGenero.Pesquisar(i.IdGenero).Descricao}");
     Cor.White();
     Console.WriteLine("———————————————————————————");
   }
@@ -483,7 +561,7 @@ public class Program {
     //OPÇÕES DE LIVROS PARA ATUALIZAR
     Cor.Magenta();
     foreach(Livro i in NLivro.Listar())
-      Console.WriteLine(i);
+      Console.WriteLine($"{i.Id} - {i.Titulo} - Autor: {NAutor.Pesquisar(i.IdAutor).Nome} - Gênero: {NGenero.Pesquisar(i.IdGenero).Descricao}");
     //ID E DADOS A SEREM ATUALIZADOS
     Cor.White();
     Console.Write("▶ Id: ");
@@ -528,6 +606,7 @@ public class Program {
 
   /*===============TRATAMENTO DE AUTOR================*/
   public static void AutorInserir(){
+    try{
     Console.WriteLine("———————————————————————————");
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷【CADASTRAR AUTOR】∷∷∷∷");
@@ -544,6 +623,14 @@ public class Program {
     Console.WriteLine("Autor Cadastrado ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+     catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Autor já Cadastrado ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
 
   public static void AutorListar(){

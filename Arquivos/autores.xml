@@ -4,4 +4,8 @@
     <Id>1</Id>
     <Nome>Jk</Nome>
   </Autor>
+  <Autor>
+    <Id>2</Id>
+    <Nome>Machado de Assis</Nome>
+  </Autor>
 </ArrayOfAutor>
