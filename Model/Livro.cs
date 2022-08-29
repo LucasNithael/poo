@@ -1,6 +1,6 @@
 using System;
 
-class Livro{
+public class Livro{
   public int Id{get;set;}
   public string Titulo{get; set;}
   private int anoLancamento;

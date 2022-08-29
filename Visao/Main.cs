@@ -3,7 +3,7 @@ using System;
 
 public class Program {
   private static bool adminLogado = false;
-  private static Leitor leitorLogado = null;
+  private static Usuario leitorLogado = null;
   
   public static void InserirAdmin() {
     Usuario u = new Usuario();
@@ -15,7 +15,6 @@ public class Program {
   
   public static void Main(){
     InserirAdmin();    
-    Console.WriteLine("--- Bem-vindo ao IFShop ---");
     int op = 0;
     do {
       try {
@@ -44,14 +43,41 @@ public class Program {
   
 
    public static int Menu() {
-    Console.WriteLine();
-    Console.WriteLine("----- Selecione ------");
-    Console.WriteLine("  01 - Login");
-    Console.WriteLine("  02 - Cadastrar-se");
-    Console.WriteLine("----------------------");
-    Console.WriteLine("  99 - Sair");
-    Console.WriteLine("----------------------");
-    Console.Write("Opção: ");
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    Cor.Magenta();
+    Console.WriteLine("• ∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷ •");
+    Console.Write("∷∷∷∷∷∷ ");
+    Cor.DarkBlue(); 
+    Console.Write("BEM-VINDO(A)");
+    Cor.Magenta();
+    Console.WriteLine(" ∷∷∷∷∷∷∷");
+    Console.Write("∷∷∷∷∷∷   ");
+    Cor.Green();
+    Console.Write("A NOSSA");
+    Cor.Magenta();
+    Console.Write("    ∷∷∷∷∷∷∷\n");
+    Console.Write("∷∷∷∷∷∷  ");
+    Cor.Yellow();
+    Console.Write("BIBLIOTECA");
+    Cor.Magenta();
+    Console.WriteLine("  ∷∷∷∷∷∷∷");
+    Console.WriteLine("• ∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷ •");
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    Cor.DarkRed();
+    Console.WriteLine("∷∷∷∷∷∷∷∷ SELECIONE ∷∷∷∷∷∷∷∷");
+    Cor.DarkBlue();
+    Console.WriteLine("⣿    01 - Login           ⣿");
+    Console.WriteLine("⣿    02 - Cadastrar-se    ⣿");
+    Cor.DarkRed();
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
+    Cor.DarkBlue();
+    Console.WriteLine("⣿    99 - Sair            ⣿");
+    Cor.DarkRed();
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
+    Cor.White();
+    Console.Write("▶ Opção: ");
     return int.Parse(Console.ReadLine());
    }
   /*-----------------MENU DO LEITOR------------------------*/
@@ -74,8 +100,8 @@ public class Program {
     Leitor l = new Leitor();
     l.Nome = nome;
     l.IdUsuario = u.Id;
-    NLeitor.Inserir(l);
     NUsuario.Inserir(u);
+    NLeitor.Inserir(l);
     
     Cor.Green();
     Console.WriteLine("Usuário Cadastro ✔");
@@ -84,15 +110,18 @@ public class Program {
     }
     catch(ArgumentOutOfRangeException){
       Cor.DarkRed();
-      Console.WriteLine("Usuário já existe ✘");
+      Console.WriteLine("Nome de usuário já existe ✘");
       Cor.White();
       Cadastro();
     }
   }
   public static bool Login(){
-    Console.WriteLine("Informe o nome");
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【LOGIN】∷∷∷∷∷∷∷∷∷");
+    Cor.White();
+    Console.Write("▶ Nome de usuário: ");
     string nome = Console.ReadLine();
-    Console.WriteLine("Informe a senha");
+    Console.Write("▶ Senha: ");
     string senha = Console.ReadLine();
     Usuario u = NUsuario.Autenticar(nome, senha);
     if (u != null) {
@@ -100,9 +129,11 @@ public class Program {
       adminLogado = u.Admin;
       // Cliente logado se estiver no cadastro de clientes
       // o id do usuário informado
-      leitorLogado = NLeitor.Pesquisar(u.Id); 
+      leitorLogado = NUsuario.Pesquisar(u.Id);
+      Console.WriteLine("———————————————————————————");
       return true;
     }
+    Console.WriteLine("———————————————————————————");
     return false;
   }
   public static void MainLeitor() {
@@ -248,12 +279,7 @@ public class Program {
   
   /*==========TRATAMENTO DE GÊNEROS=============*/
   public static void LeitorGeneroListar(){
-    Cor.Yellow();
-    Console.WriteLine("∷∷∷∷∷∷∷∷∷【GÊNEROS】∷∷∷∷∷∷∷");
-    Cor.Magenta();
-    foreach(Genero i in NGenero.Listar())
-      Console.WriteLine(i);
-    Cor.White();
+    GeneroListar();
     Console.Write("▶ Qual Gênero: ");
     int id = int.Parse(Console.ReadLine());
     Genero g = NGenero.Pesquisar(id);
@@ -507,6 +533,7 @@ public class Program {
   }
 
   public static void AutorListar(){
+    try{
     Console.WriteLine("———————————————————————————");
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷∷∷∷【AUTORES】∷∷∷∷∷∷∷∷");
@@ -515,11 +542,21 @@ public class Program {
       Console.WriteLine(i);
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Não Há Autore ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
 
   public static void AutorAtualizar(){
+    try{
+    Console.WriteLine("———————————————————————————");
     Cor.Yellow();
-    Console.WriteLine("━━━━▶ ATUALIZAR AUTOR ◀━━━━");
+    Console.WriteLine("∷∷∷∷【ATUALIZAR AUTOR】∷∷∷∷");
     Cor.Magenta();
     foreach(Autor i in NAutor.Listar())
       Console.WriteLine(i);
@@ -535,11 +572,20 @@ public class Program {
     Console.WriteLine("Autor Atualizado ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Não Há Autores ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
 
   public static void AutorExcluir(){
+    try{
     Cor.Yellow();
-    Console.WriteLine("━━━━▶ EXCLUIR AUTOR ◀━━━━");
+    Console.WriteLine("∷∷∷∷∷∷【EXCLUIR AUTOR】∷∷∷∷");
     Cor.Magenta();
     foreach(Autor i in NAutor.Listar())
       Console.WriteLine(i);
@@ -552,23 +598,42 @@ public class Program {
     Console.WriteLine("Autor Excluído ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Não Há Autores ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
   /*============TRATAMENTO DE LEITOR ===========*/
   public static void LeitorListar(){
+    try{
     Cor.Yellow();
-    Console.WriteLine("━━━━▶  LEITORES  ◀━━━━");
-    Cor.Magenta();
-    foreach(Livro i in NLivro.Listar())
-      Console.WriteLine(i);
-    Cor.White();
-    Console.WriteLine("———————————————————————————");
-  }
-  public static void LeitorExcluir(){
-    Cor.Yellow();
-    Console.WriteLine("━━━━▶ EXCLUIR LEITOR ◀━━━━");
+    Console.WriteLine("∷∷∷∷∷∷∷【LEITORES】∷∷∷∷∷∷∷∷");
     Cor.Magenta();
     foreach(Leitor i in NLeitor.Listar())
-      Console.WriteLine(i);
+      Console.WriteLine($"{i.Id} - {i.Nome}");
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Não tem Leitores Cadastrados ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
+    
+  }
+  public static void LeitorExcluir(){
+    try{
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷【EXCLUIR LEITOR】∷∷∷∷");
+    Cor.Magenta();
+    foreach(Leitor i in NLeitor.Listar())
+      Console.WriteLine($"{i.Id} - {i.Nome}");
     Cor.White();
     Console.Write("▶ Id: ");
     int id = int.Parse(Console.ReadLine());
@@ -577,5 +642,13 @@ public class Program {
     Console.WriteLine("Leitor Excluído ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Não tem Leitores Cadastrados ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainAdmin();
+    }
   }
 }

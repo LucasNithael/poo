@@ -1,6 +1,6 @@
 using System;
 
-class Leitura{
+public class Leitura{
   public int Id{get;set;}
   public DateTime DataInicio{get;set;}
   public DateTime DataFIm{get;set;}

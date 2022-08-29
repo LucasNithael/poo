@@ -24,6 +24,7 @@ static class NGenero{
   public static void Atualizar(Genero g){
     Genero x = Pesquisar(g.Id);
     x.Descricao = g.Descricao;
+    Salvar(generos);
       
   }
   public static void Excluir(Genero g){
@@ -39,7 +40,7 @@ static class NGenero{
     return null;
   }
   
-  private static string arquivo = "./generos.xml";
+  private static string arquivo = "Arquivos/generos.xml";
   
   private static List<Genero> Abrir() {
     XmlSerializer xml = new XmlSerializer(typeof(List<Genero>));
