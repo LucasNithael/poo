@@ -620,7 +620,7 @@ public class Program {
   }
 
   public static void LivroListar(){
-    Console.WriteLine("———————————————————————————");
+   try{ Console.WriteLine("———————————————————————————");
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
     Cor.Magenta();
@@ -629,6 +629,13 @@ public class Program {
     Cor.White();
     Console.WriteLine("———————————————————————————");
   }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Livros não encontrado ✘");
+      Cor.White();
+  }
+  
+  
   public static void LivroAtualizar(){
     Console.WriteLine("———————————————————————————");
     Cor.Yellow();
@@ -657,7 +664,7 @@ public class Program {
     Console.WriteLine("———————————————————————————");
   }
   public static void LivroExcluir(){
-    Console.WriteLine("———————————————————————————");
+   try{ Console.WriteLine("———————————————————————————");
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷【EXCLUIR LIVRO】∷∷∷∷∷");
     //LISTA AS OPÇÕES
@@ -677,6 +684,12 @@ public class Program {
     Console.WriteLine("Livro Excluído ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
+  }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Livro não encontrado ou não existem livros ✘");
+      Cor.White();
+    }
   }
 
   /*===============TRATAMENTO DE AUTOR================*/
@@ -1071,7 +1084,7 @@ public class Program {
     }
     catch(NullReferenceException){
       Cor.DarkRed();
-      Console.WriteLine("Leitura não encontrada ou não existe leitura ✘");
+      Console.WriteLine("Leitura não encontrada ou não existem leituras ✘");
       Cor.White();
       Console.WriteLine("———————————————————————————");
       //LeituraListar();
@@ -1097,10 +1110,10 @@ public class Program {
     }
     catch(NullReferenceException){
       Cor.DarkRed();
-      Console.WriteLine("Leitura não encontrada ✘");
+      Console.WriteLine("Leitura não encontrada ou não existem leituras ✘");
       Cor.White();
       Console.WriteLine("———————————————————————————");
-      LeituraExcluir();
+      //LeituraExcluir();
     }
   }
 }
