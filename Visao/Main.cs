@@ -79,37 +79,7 @@ public class Program {
     return int.Parse(Console.ReadLine());
    }
   /*-----------------MENU DO LEITOR------------------------*/
-  public static void Cadastro(){
-    try{
-    Console.WriteLine("———————————————————————————");
-    Cor.Yellow();
-    Console.WriteLine("∷∷∷∷∷∷∷∷【CADASTRO】∷∷∷∷∷∷∷");
-    Cor.White();
-    Console.Write("▶ Seu nome: ");
-    string nome = Console.ReadLine();
-    Console.Write("▶ Nome de usuário: ");
-    string nomeusuario = Console.ReadLine();
-    Console.Write("▶ Senha: ");
-    string senha = Console.ReadLine();
-
-    Usuario u = new Usuario();
-    u.Nome = nome;
-    u.NomeUsuario = nomeusuario;
-    u.Senha = senha;
-    NUsuario.Inserir(u);
-    
-    Cor.Green();
-    Console.WriteLine("Usuário Cadastro ✔");
-    Cor.White();
-    Console.WriteLine("———————————————————————————");
-    }
-    catch(ArgumentOutOfRangeException){
-      Cor.DarkRed();
-      Console.WriteLine("Nome de usuário já existe ✘");
-      Cor.White();
-      Cadastro();
-    }
-  }
+  
   public static bool Login(){
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷∷∷∷∷【LOGIN】∷∷∷∷∷∷∷∷∷");
@@ -149,7 +119,7 @@ public class Program {
             //Leitura
             //case 08 : LeituraListar(); break;
             //case 09 : LeituraExcluir(); break;
-            //case 10: MudarSenha(); break;
+            case 10: MudarSenha(); break;
           }
       }
       catch (Exception erro) {
@@ -279,6 +249,7 @@ public class Program {
     Cor.White();
     Console.Write("▶ Digite Sua Busca 🔎 ou 0\n  para sair: ");
     string busca = Console.ReadLine();
+    if(busca=="0") MainLeitor(); 
     Genero g = NGenero.Buscar(busca);
     if(g==null){
       Cor.DarkRed();
@@ -286,16 +257,16 @@ public class Program {
       Cor.White();
       Console.WriteLine("Deseja fazer uma nova busca: S/N ");
       string resp = Console.ReadLine();
-      if(resp.ToUpper() == "N".ToUpper()) MainLeitor();
+      if(resp.ToUpper() == "N") MainLeitor();
       GeneroBuscar();
-    }
+    }     
     Cor.Magenta();
     Console.WriteLine(g);
     Cor.White();
     Console.Write("▶ Deseja Listar os Livros\n  do Gênero? S/N ");
     string res = Console.ReadLine();
-    if(res.ToUpper() == "N".ToUpper()) MainLeitor();
-  
+    if(res.ToUpper() == "N".ToUpper()) GeneroBuscar();
+    if(res.ToUpper() == "S"){
     Cor.White();          
     Console.WriteLine("———————————————————————————");  
     Cor.Yellow();
@@ -322,12 +293,20 @@ public class Program {
     Cor.White();
     Console.WriteLine("———————————————————————————");
     }
+    else{
+      Cor.DarkRed();
+      Console.WriteLine("Comando Inválido ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      GeneroBuscar();
+    }
+    }
     catch(ArgumentOutOfRangeException){
       Cor.DarkRed();
       Console.WriteLine("Livro Já Selecionado ✘");
       Cor.White();
       Console.WriteLine("———————————————————————————");
-      UsuarioGeneroListar();
+      GeneroBuscar();
     }
     
     Console.WriteLine("———————————————————————————");
@@ -501,6 +480,7 @@ public class Program {
     Cor.White();
     Console.Write("▶ Digite Sua Busca 🔎 ou 0\n  para sair: ");
     string busca = Console.ReadLine();
+    if(busca=="0") MainLeitor();
     Livro a = NLivro.Buscar(busca);
     if(a==null){
       Cor.DarkRed();
@@ -551,16 +531,12 @@ public class Program {
   
   public static void UsuarioLivroListar(){
     try{
-    LivroListar();
-    Console.Write("▶ Qual Livro: ");
-    int id = int.Parse(Console.ReadLine());
-    Autor a = NAutor.Pesquisar(id);
     Cor.White();          
     Console.WriteLine("———————————————————————————");  
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
     Cor.Magenta();
-    foreach(Livro i in NLivro.ListarLivroAutor(a))
+    foreach(Livro i in NLivro.Listar())
       Console.WriteLine($"{i.Id} - {i.Titulo} - Gênero: {NGenero.Pesquisar(i.IdGenero).Descricao}");
     Cor.White();
     Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
@@ -707,6 +683,7 @@ public class Program {
     Cor.White();
     Console.Write("▶ Digite Sua Busca 🔎 ou 0\n  para sair: ");
     string busca = Console.ReadLine();
+    if(busca.ToUpper() == "0") MainLeitor();
     Autor a = NAutor.Buscar(busca);
     if(a==null){
       Cor.DarkRed();
@@ -714,7 +691,7 @@ public class Program {
       Cor.White();
       Console.WriteLine("Deseja fazer uma nova busca: S/N ");
       string resp = Console.ReadLine();
-      if(resp.ToUpper() == "N".ToUpper()) MainLeitor();
+      if(resp.ToUpper() == "N") MainLeitor();
       AutorBuscar();
     }
     Cor.Magenta();
@@ -722,33 +699,41 @@ public class Program {
     Cor.White();
     Console.Write("▶ Deseja Listar os Livros\n  do Autor? S/N ");
     string res = Console.ReadLine();
-    if(res.ToUpper() == "N".ToUpper()) MainLeitor();
-  
-    Cor.White();          
-    Console.WriteLine("———————————————————————————");  
-    Cor.Yellow();
-    Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
-    Cor.Magenta();
-    foreach(Livro i in NLivro.ListarLivroAutor(a))
+    if(res.ToUpper() == "N") AutorBuscar();
+    if(res.ToUpper() == "S"){
+      Cor.White();          
+      Console.WriteLine("———————————————————————————");  
+      Cor.Yellow();
+      Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
+      Cor.Magenta();
+      foreach(Livro i in NLivro.ListarLivroAutor(a))
       Console.WriteLine($"{i.Id} - {i.Titulo} - Gênero: {NGenero.Pesquisar(i.IdGenero).Descricao}");
-    Cor.White();
-    Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
-    int idlivro = int.Parse(Console.ReadLine());
-    if(idlivro==0){ 
+      Cor.White();
+      Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
+      int idlivro = int.Parse(Console.ReadLine());
+      if(idlivro==0){ 
+        Cor.White();
+        Console.WriteLine("———————————————————————————");
+        MainLeitor();
+      }
+      Livro l = NLivro.Pesquisar(idlivro);
+      Leitura nova = new Leitura();
+      nova.IdLivro = l.Id;
+      nova.IdUsuario = leitorLogado.Id;
+      NLeitura.Inserir(nova);
+      
+      Cor.Green();
+      Console.WriteLine("Livro Selecionado ✔"); 
       Cor.White();
       Console.WriteLine("———————————————————————————");
-      MainLeitor();
     }
-    Livro l = NLivro.Pesquisar(idlivro);
-    Leitura nova = new Leitura();
-    nova.IdLivro = l.Id;
-    nova.IdUsuario = leitorLogado.Id;
-    NLeitura.Inserir(nova);
-    
-    Cor.Green();
-    Console.WriteLine("Livro Selecionado ✔"); 
-    Cor.White();
-    Console.WriteLine("———————————————————————————");
+    else{
+     Cor.DarkRed();
+     Console.WriteLine("Comando Inválido ✘");
+     Cor.White();
+     Console.WriteLine("———————————————————————————"); 
+     AutorBuscar();
+    }
     }
     catch(ArgumentOutOfRangeException){
       Cor.DarkRed();
@@ -906,6 +891,8 @@ public class Program {
       MainAdmin();
     }
   }
+
+  
   /*============TRATAMENTO DE USUARIO ===========*/
   public static void UsuarioListar(){
     try{
@@ -948,6 +935,50 @@ public class Program {
       Cor.White();
       Console.WriteLine("———————————————————————————");
       MainAdmin();
+    }
+  }
+
+  public static void MudarSenha(){
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷【MUDAR SENHA】∷∷∷∷∷∷");
+    Cor.White();
+    Console.Write("▶ Digite sua nova senha: ");
+    string novaSenha = Console.ReadLine();
+    Usuario x = NUsuario.Pesquisar(leitorLogado.Id);
+    x.Senha = novaSenha;
+    NUsuario.Atualizar(x);
+    Cor.Green();
+    Console.WriteLine("Senha Alterada ✔");
+  }
+  public static void Cadastro(){
+    try{
+    Console.WriteLine("———————————————————————————");
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷∷∷∷【CADASTRO】∷∷∷∷∷∷∷");
+    Cor.White();
+    Console.Write("▶ Seu nome: ");
+    string nome = Console.ReadLine();
+    Console.Write("▶ Nome de usuário: ");
+    string nomeusuario = Console.ReadLine();
+    Console.Write("▶ Senha: ");
+    string senha = Console.ReadLine();
+
+    Usuario u = new Usuario();
+    u.Nome = nome;
+    u.NomeUsuario = nomeusuario;
+    u.Senha = senha;
+    NUsuario.Inserir(u);
+    
+    Cor.Green();
+    Console.WriteLine("Usuário Cadastro ✔");
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(ArgumentOutOfRangeException){
+      Cor.DarkRed();
+      Console.WriteLine("Nome de usuário já existe ✘");
+      Cor.White();
+      Cadastro();
     }
   }
 }
