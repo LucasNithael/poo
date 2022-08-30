@@ -143,8 +143,8 @@ public class Program {
             case 01 : LeitorGeneroListar(); break;
             case 02 : GeneroBuscar(); break;
             //Autor
-            //case 03 : AutorListar(); break;
-            //case 04 : AutorBuscar(); break;
+            case 03 : LeitorAutorListar(); break;
+            case 04 : AutorBuscar(); break;
             //Livro
             //case 05 : LivroEscolher(); break;
             //case 06 : LivroListar(); break;
@@ -494,6 +494,7 @@ public class Program {
     }
   }
 
+
   /*============TRATAMENTO DE LIVRO=====================*/
 
   public static void LivroInserir(){
@@ -605,6 +606,109 @@ public class Program {
   }
 
   /*===============TRATAMENTO DE AUTOR================*/
+  public static void AutorBuscar(){
+    try{
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷【BUSCAR AUTOR】∷∷∷∷∷");
+    Cor.White();
+    Console.Write("▶ Digite Sua Busca 🔎 ou 0\n  para sair: ");
+    string busca = Console.ReadLine();
+    Autor a = NAutor.Buscar(busca);
+    if(a==null){
+      Cor.DarkRed();
+      Console.WriteLine("Autor não encontrado ✘");
+      Cor.White();
+      Console.WriteLine("Deseja fazer uma nova busca: S/N ");
+      string resp = Console.ReadLine();
+      if(resp.ToUpper() == "N".ToUpper()) MainLeitor();
+      GeneroBuscar();
+    }
+    Cor.Magenta();
+    Console.WriteLine(a);
+    Cor.White();
+    Console.Write("▶ Deseja Listar os Livros\n  do Autor? S/N ");
+    string res = Console.ReadLine();
+    if(res.ToUpper() == "N".ToUpper()) MainLeitor();
+  
+    Cor.White();          
+    Console.WriteLine("———————————————————————————");  
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
+    Cor.Magenta();
+    foreach(Livro i in NLivro.ListarLivroAutor(a))
+      Console.WriteLine($"{i.Id} - {i.Titulo} - Gênero: {NGenero.Pesquisar(i.IdGenero).Descricao}");
+    Cor.White();
+    Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
+    int idlivro = int.Parse(Console.ReadLine());
+    if(idlivro==0){ 
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainLeitor();
+    }
+    Livro l = NLivro.Pesquisar(idlivro);
+    Leitura nova = new Leitura();
+    nova.IdLivro = l.Id;
+    nova.IdUsuario = leitorLogado.Id;
+    NLeitura.Inserir(nova);
+    
+    Cor.Green();
+    Console.WriteLine("Livro Selecionado ✔"); 
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(ArgumentOutOfRangeException){
+      Cor.DarkRed();
+      Console.WriteLine("Livro Já Selecionado ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeitorGeneroListar();
+    }
+    
+    Console.WriteLine("———————————————————————————");
+  }
+  
+  public static void LeitorAutorListar(){
+    try{
+    AutorListar();
+    Console.Write("▶ Qual Autor: ");
+    int id = int.Parse(Console.ReadLine());
+    Autor a = NAutor.Pesquisar(id);
+    Cor.White();          
+    Console.WriteLine("———————————————————————————");  
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
+    Cor.Magenta();
+    foreach(Livro i in NLivro.ListarLivroAutor(a))
+      Console.WriteLine($"{i.Id} - {i.Titulo} - Gênero: {NGenero.Pesquisar(i.IdGenero).Descricao}");
+    Cor.White();
+    Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
+    int idlivro = int.Parse(Console.ReadLine());
+    if(idlivro==0){ 
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainLeitor();
+    }
+    else{
+      Livro l = NLivro.Pesquisar(idlivro);
+      Leitura nova = new Leitura();
+      nova.IdLivro = l.Id;
+      nova.IdUsuario = leitorLogado.Id;
+      NLeitura.Inserir(nova);
+    }
+    Cor.Green();
+    Console.WriteLine("Livro Selecionado ✔"); 
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(ArgumentOutOfRangeException){
+      Cor.DarkRed();
+      Console.WriteLine("Livro Já Selecionado ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeitorGeneroListar();
+    }
+  }
+  
   public static void AutorInserir(){
     try{
     Console.WriteLine("———————————————————————————");

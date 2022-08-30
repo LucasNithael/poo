@@ -50,6 +50,13 @@ static class NLivro{
       if(i.IdGenero == g.Id) x.Add(i);
     return x;
   }
+
+  public static List<Livro> ListarLivroAutor(Autor a){
+    List<Livro> x = new List<Livro>();
+    foreach(Livro i in Listar())
+      if(i.IdAutor == a.Id) x.Add(i);
+    return x;
+  }
   
   //Parte dos arquvos
   private static string arquivo = "Arquivos/livros.xml";

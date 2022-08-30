@@ -39,7 +39,13 @@ static class NAutor{
       if(i.Id == id) return i;
     return null;
   }
-
+  public static Autor Buscar(string s){
+    foreach(Autor i in Listar()){
+      if(i.Nome.ToUpper() == s.ToUpper()) return i;
+    }
+    return null;
+  }
+  
   //Métodos de arquivos
   private static string arquivo = "Arquivos/autores.xml";
   
