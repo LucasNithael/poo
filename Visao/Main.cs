@@ -1,12 +1,12 @@
 using System;
 
-
 public class Program {
   private static bool adminLogado = false;
   private static Usuario leitorLogado = null;
   
   public static void InserirAdmin() {
     Usuario u = new Usuario();
+    u.Nome = "Administrador";
     u.NomeUsuario = "admin";
     u.Senha = "admin";
     u.Admin = true;
@@ -92,13 +92,10 @@ public class Program {
     string senha = Console.ReadLine();
 
     Usuario u = new Usuario();
+    u.Nome = nome;
     u.NomeUsuario = nomeusuario;
     u.Senha = senha;
-    Leitor l = new Leitor();
-    l.Nome = nome;
-    l.IdUsuario = u.Id;
     NUsuario.Inserir(u);
-    NLeitor.Inserir(l);
     
     Cor.Green();
     Console.WriteLine("Usuário Cadastro ✔");
@@ -126,7 +123,7 @@ public class Program {
       adminLogado = u.Admin;
       // Cliente logado se estiver no cadastro de clientes
       // o id do usuário informado
-      leitorLogado = NUsuario.Pesquisar(u.Id);
+      leitorLogado = u;
       Console.WriteLine("———————————————————————————");
       return true;
     }
@@ -151,7 +148,7 @@ public class Program {
             //case 07 : LivroBuscar(); break;
             //Leitura
             //case 08 : LeituraListar(); break;
-            //case 09 : LeituraFechar(); break;
+            //case 09 : LeituraExcluir(); break;
           case 10: Cadastro(); break;
           }
       }
@@ -190,7 +187,7 @@ public class Program {
     Console.WriteLine("∷∷∷∷∷∷∷∷【LEITURA】∷∷∷∷∷∷∷∷"); 
     Cor.DarkBlue();
     Console.WriteLine("⣿  08 - Listar Leitura    ⣿");
-    Console.WriteLine("⣿  09 - Fechar Leitura    ⣿");
+    Console.WriteLine("⣿  09 - Excluir Leitura    ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
     Console.WriteLine("⣿  00 - Logout            ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
@@ -221,8 +218,8 @@ public class Program {
             case 11 : AutorAtualizar(); break;
             case 12 : AutorExcluir(); break;
             // Leitor
-            case 13 : LeitorListar(); break;
-            case 14 : LeitorExcluir(); break;
+            case 13 : UsuarioListar(); break;
+            case 14 : UsuarioExcluir(); break;
           }
       }
       catch (Exception erro) {
@@ -812,45 +809,45 @@ public class Program {
       MainAdmin();
     }
   }
-  /*============TRATAMENTO DE LEITOR ===========*/
-  public static void LeitorListar(){
+  /*============TRATAMENTO DE USUARIO ===========*/
+  public static void UsuarioListar(){
     try{
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷∷∷【LEITORES】∷∷∷∷∷∷∷∷");
     Cor.Magenta();
-    foreach(Leitor i in NLeitor.Listar())
+    foreach(Usuario i in NUsuario.Listar())
       Console.WriteLine($"{i.Id} - {i.Nome}");
     Cor.White();
     Console.WriteLine("———————————————————————————");
     }
     catch(NullReferenceException){
       Cor.DarkRed();
-      Console.WriteLine("Não tem Leitores Cadastrados ✘");
+      Console.WriteLine("Não tem Usuários Cadastrados ✘");
       Cor.White();
       Console.WriteLine("———————————————————————————");
       MainAdmin();
     }
     
   }
-  public static void LeitorExcluir(){
+  public static void UsuarioExcluir(){
     try{
     Cor.Yellow();
     Console.WriteLine("∷∷∷∷∷【EXCLUIR LEITOR】∷∷∷∷");
     Cor.Magenta();
-    foreach(Leitor i in NLeitor.Listar())
+    foreach(Usuario i in NUsuario.Listar())
       Console.WriteLine($"{i.Id} - {i.Nome}");
     Cor.White();
     Console.Write("▶ Id: ");
     int id = int.Parse(Console.ReadLine());
-    Leitor x = NLeitor.Pesquisar(id);
-    NLeitor.Excluir(x);
+    Usuario x = NUsuario.Pesquisar(id);
+    NUsuario.Excluir(x);
     Console.WriteLine("Leitor Excluído ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
     }
     catch(NullReferenceException){
       Cor.DarkRed();
-      Console.WriteLine("Não tem Leitores Cadastrados ✘");
+      Console.WriteLine("Não tem Usuários Cadastrados ✘");
       Cor.White();
       Console.WriteLine("———————————————————————————");
       MainAdmin();

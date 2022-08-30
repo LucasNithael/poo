@@ -6,6 +6,7 @@ using System.IO;
 
 static class NUsuario{
   public static List<Usuario> usuarios;
+  
   public static void Inserir(Usuario u){
     if(u.NomeUsuario != "admin" && u.Senha != "admin"){
       usuarios = Abrir();
@@ -19,12 +20,31 @@ static class NUsuario{
       usuarios.Add(u);
       Salvar(usuarios);}
   }
-  public static Usuario Pesquisar(int id){
+
+  public static List<Usuario> Listar(){
     usuarios = Abrir();
-    foreach(Usuario i in usuarios)
+    if(usuarios.Count == 0) throw new NullReferenceException("Não existe Usuários");
+    else return usuarios;
+  }
+  public static void Atualizar(Usuario u){
+    Usuario x = Pesquisar(u.Id);
+    x.Senha = u.Senha;
+    Salvar(usuarios);
+      
+  }
+  public static void Excluir(Usuario u){
+    Usuario x = Pesquisar(u.Id);
+    if(x != null){
+      usuarios.Remove(x);
+      Salvar(usuarios);
+    }
+  }
+  public static Usuario Pesquisar(int id){
+    foreach(Usuario i in Listar())
       if(i.Id == id) return i;
     return null;
   }
+  
   public static Usuario Autenticar(string usuario, string senha){
     usuarios = Abrir();
     foreach(Usuario i in usuarios)
