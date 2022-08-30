@@ -57,6 +57,13 @@ static class NLivro{
       if(i.IdAutor == a.Id) x.Add(i);
     return x;
   }
+
+  public static Livro Buscar(string s){
+    foreach(Livro i in Listar()){
+      if(i.Titulo.ToUpper() == s.ToUpper()) return i;
+    }
+    return null;
+  }
   
   //Parte dos arquvos
   private static string arquivo = "Arquivos/livros.xml";

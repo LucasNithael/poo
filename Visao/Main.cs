@@ -26,8 +26,9 @@ public class Program {
                 if (adminLogado) MainAdmin();
                 else MainLeitor();
               }
-              else 
-                Console.WriteLine("Usuário ou senha inválidos");
+              else
+                Cor.DarkRed();
+                Console.WriteLine("Usuário ou Senha Inválidos ✘");
               break;
             case 02 : Cadastro(); break;
         }
@@ -137,19 +138,18 @@ public class Program {
         op = MenuLeitor();
         switch (op) {
             // Gênero
-            case 01 : LeitorGeneroListar(); break;
+            case 01 : UsaurioGeneroListar(); break;
             case 02 : GeneroBuscar(); break;
             //Autor
-            case 03 : LeitorAutorListar(); break;
+            case 03 : UsaurioAutorListar(); break;
             case 04 : AutorBuscar(); break;
             //Livro
-            //case 05 : LivroEscolher(); break;
-            //case 06 : LivroListar(); break;
-            //case 07 : LivroBuscar(); break;
+            //case 05 : UsaurioLivroListar(); break;
+            //case 06 : UsaurioLivroBuscar(); break;
             //Leitura
             //case 08 : LeituraListar(); break;
             //case 09 : LeituraExcluir(); break;
-          case 10: Cadastro(); break;
+            case 10: MudarSenha(); break;
           }
       }
       catch (Exception erro) {
@@ -180,15 +180,15 @@ public class Program {
     Cor.DarkRed();
     Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVRO】∷∷∷∷∷∷∷∷∷"); 
     Cor.DarkBlue();
-    Console.WriteLine("⣿  05 - Escolher Livro    ⣿");
-    Console.WriteLine("⣿  06 - Listar Livros     ⣿");
-    Console.WriteLine("⣿  07 - Buscar Livro      ⣿");
+    Console.WriteLine("⣿  05 - Listar Livros     ⣿");
+    Console.WriteLine("⣿  06 - Buscar Livro      ⣿");
     Cor.DarkRed(); 
     Console.WriteLine("∷∷∷∷∷∷∷∷【LEITURA】∷∷∷∷∷∷∷∷"); 
     Cor.DarkBlue();
-    Console.WriteLine("⣿  08 - Listar Leitura    ⣿");
-    Console.WriteLine("⣿  09 - Excluir Leitura    ⣿");
+    Console.WriteLine("⣿  07 - Listar Leitura    ⣿");
+    Console.WriteLine("⣿  08 - Excluir Leitura   ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
+    Console.WriteLine("⣿  10 - Mudar Senha       ⣿");
     Console.WriteLine("⣿  00 - Logout            ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
     Cor.White();
@@ -333,7 +333,7 @@ public class Program {
     Console.WriteLine("———————————————————————————");
   }
   
-  public static void LeitorGeneroListar(){
+  public static void UsaurioGeneroListar(){
     try{
     GeneroListar();
     Console.Write("▶ Qual Gênero: ");
@@ -492,8 +492,98 @@ public class Program {
   }
 
 
-  /*============TRATAMENTO DE LIVRO=====================*/
+  /*==================TRATAMENTO DE LIVRO=====================*/
 
+  public static void LivroBuscar(){
+    try{
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷【BUSCAR LIVRO】∷∷∷∷∷");
+    Cor.White();
+    Console.Write("▶ Digite Sua Busca 🔎 ou 0\n  para sair: ");
+    string busca = Console.ReadLine();
+    Livro a = NLivro.Buscar(busca);
+    if(a==null){
+      Cor.DarkRed();
+      Console.WriteLine("Livro não encontrado ✘");
+      Cor.White();
+      Console.WriteLine("Deseja fazer uma nova busca: S/N ");
+      string resp = Console.ReadLine();
+      if(resp.ToUpper() == "N".ToUpper()) MainLeitor();
+      LivroBuscar();
+    }
+    Cor.Magenta();
+    Console.WriteLine($"{a.Id} - {a.Titulo} - Autor: {NAutor.Pesquisar(a.IdAutor).Nome} - Gênero: {NGenero.Pesquisar(a.Id).Descricao}");
+    Cor.White();          
+    Console.Write("▶ Deseja Adicionar Livro a Leitura? S/N: ");
+    string r = Console.ReadLine();
+    if(r.ToUpper()=="N"){ 
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainLeitor();
+    }
+    Leitura nova = new Leitura();
+    nova.IdLivro = a.Id;
+    nova.IdUsuario = leitorLogado.Id;
+    NLeitura.Inserir(nova);
+    
+    Cor.Green();
+    Console.WriteLine("Livro Selecionado ✔"); 
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(ArgumentOutOfRangeException){
+      Cor.DarkRed();
+      Console.WriteLine("Livro Já Selecionado ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeitorGeneroListar();
+    }
+    
+    Console.WriteLine("———————————————————————————");
+  }
+  
+  public static void UsaurioLivroListar(){
+    try{
+    AutorListar();
+    Console.Write("▶ Qual Autor: ");
+    int id = int.Parse(Console.ReadLine());
+    Autor a = NAutor.Pesquisar(id);
+    Cor.White();          
+    Console.WriteLine("———————————————————————————");  
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷∷∷∷∷【LIVROS】∷∷∷∷∷∷∷∷");
+    Cor.Magenta();
+    foreach(Livro i in NLivro.ListarLivroAutor(a))
+      Console.WriteLine($"{i.Id} - {i.Titulo} - Gênero: {NGenero.Pesquisar(i.IdGenero).Descricao}");
+    Cor.White();
+    Console.Write("▶ Escolher livro ou 0 para\n  voltar: ");
+    int idlivro = int.Parse(Console.ReadLine());
+    if(idlivro==0){ 
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      MainLeitor();
+    }
+    else{
+      Livro l = NLivro.Pesquisar(idlivro);
+      Leitura nova = new Leitura();
+      nova.IdLivro = l.Id;
+      nova.IdUsuario = leitorLogado.Id;
+      NLeitura.Inserir(nova);
+    }
+    Cor.Green();
+    Console.WriteLine("Livro Selecionado ✔"); 
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(ArgumentOutOfRangeException){
+      Cor.DarkRed();
+      Console.WriteLine("Livro Já Selecionado ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeitorGeneroListar();
+    }
+  }
+  
   public static void LivroInserir(){
     try{
     Console.WriteLine("———————————————————————————");
@@ -618,7 +708,7 @@ public class Program {
       Console.WriteLine("Deseja fazer uma nova busca: S/N ");
       string resp = Console.ReadLine();
       if(resp.ToUpper() == "N".ToUpper()) MainLeitor();
-      GeneroBuscar();
+      AutorBuscar();
     }
     Cor.Magenta();
     Console.WriteLine(a);
@@ -664,7 +754,7 @@ public class Program {
     Console.WriteLine("———————————————————————————");
   }
   
-  public static void LeitorAutorListar(){
+  public static void UsaurioAutorListar(){
     try{
     AutorListar();
     Console.Write("▶ Qual Autor: ");
