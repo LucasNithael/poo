@@ -117,8 +117,8 @@ public class Program {
             case 05 : UsuarioLivroListar(); break;
             case 06 : UsuarioLivroBuscar(); break;
             //Leitura
-            //case 08 : LeituraListar(); break;
-            //case 09 : LeituraExcluir(); break;
+            case 07 : LeituraListar(); break;
+            //case 8 : LeituraExcluir(); break;
             case 10: MudarSenha(); break;
           }
       }
@@ -286,6 +286,7 @@ public class Program {
     Leitura nova = new Leitura();
     nova.IdLivro = l.Id;
     nova.IdUsuario = leitorLogado.Id;
+    nova.Situacao = true; 
     NLeitura.Inserir(nova);
     
     Cor.Green();
@@ -338,6 +339,7 @@ public class Program {
       Leitura nova = new Leitura();
       nova.IdLivro = l.Id;
       nova.IdUsuario = leitorLogado.Id;
+      nova.Situacao = true;
       NLeitura.Inserir(nova);
     }
     Cor.Green();
@@ -551,6 +553,7 @@ public class Program {
     Leitura nova = new Leitura();
     nova.IdLivro = l.Id;
     nova.IdUsuario = leitorLogado.Id;
+    nova.Situacao = true;
     NLeitura.Inserir(nova);
 
     Cor.Green();
@@ -720,6 +723,7 @@ public class Program {
       Leitura nova = new Leitura();
       nova.IdLivro = l.Id;
       nova.IdUsuario = leitorLogado.Id;
+      nova.Situacao = true;
       NLeitura.Inserir(nova);
       
       Cor.Green();
@@ -772,6 +776,7 @@ public class Program {
       Leitura nova = new Leitura();
       nova.IdLivro = l.Id;
       nova.IdUsuario = leitorLogado.Id;
+      nova.Situacao = true;
       NLeitura.Inserir(nova);
     }
     Cor.Green();
@@ -979,6 +984,96 @@ public class Program {
       Console.WriteLine("Nome de usuário já existe ✘");
       Cor.White();
       Cadastro();
+    }
+  }
+
+
+  /*==========================TRATAMENTO DE LEITUTA==================*/
+  public static void LeituraListar(){
+    try{
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷【SUAS LEITURAS】∷∷∷∷");
+    foreach(Leitura i in NLeitura.ListarLeituraUsuario(leitorLogado)){
+      if(i.Situacao){
+        Cor.Magenta();
+        Console.Write($"{i.Id} - {NLivro.Pesquisar(i.IdLivro).Titulo}");
+        Cor.Green();
+        Console.Write($" Aberto");
+        Cor.Magenta();
+        Console.WriteLine($" {i.DataInicio:dd/MM}");
+      }
+      else{
+        Cor.Magenta();
+        Console.Write($"{i.Id} - {NLivro.Pesquisar(i.IdLivro).Titulo}");
+        Cor.DarkRed();
+        Console.Write($" Fechado");
+        Cor.Magenta();
+        Console.WriteLine($" {i.DataInicio:dd/MM}");
+      }
+    }
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    Console.WriteLine("1 - Fechar Leitura");
+    Console.WriteLine("2 - Abrir Leitura");
+    Console.WriteLine("0 - Voltar");
+    Console.WriteLine("———————————————————————————");  
+    Console.Write("▶ Opção: ");
+    string resp = Console.ReadLine();
+    if(resp=="0") MainLeitor();
+    if(resp=="1"){
+      Console.Write("▶ Id da Leitura: ");
+      int idleitura = int.Parse(Console.ReadLine());
+      Leitura x = NLeitura.Pesquisar(idleitura);
+      if(!x.Situacao){
+        Cor.DarkRed();
+        Console.WriteLine("Leitura já fechada ✘");
+        Cor.White();
+        Console.WriteLine("———————————————————————————");
+        LeituraListar();
+      }
+      x.Situacao = false;
+      NLeitura.Atualizar(x);
+      Cor.Green();
+      Console.WriteLine("Leitura Fechada ✔");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeituraListar();
+    }
+    if(resp=="2"){
+      Console.Write("▶ Id da Leitura: ");
+      int idleitura = int.Parse(Console.ReadLine());
+      Leitura x = NLeitura.Pesquisar(idleitura);
+      if(x.Situacao){
+        Cor.DarkRed();
+        Console.WriteLine("Leitura já Aberta ✘");
+        Cor.White();
+        Console.WriteLine("———————————————————————————");
+        LeituraListar();
+      }
+      x.Situacao = true;
+      NLeitura.Atualizar(x);
+      Cor.Green();
+      Console.WriteLine("Leitura Aberta ✔");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeituraListar();
+    }
+    else{
+      Cor.DarkRed();
+      Console.WriteLine("Comando Inválido ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeituraListar();
+    }
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
+      Console.WriteLine("Leitura não encontrada ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      LeituraListar();
     }
   }
 }

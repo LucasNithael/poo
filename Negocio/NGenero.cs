@@ -34,8 +34,7 @@ static class NGenero{
   public static void Atualizar(Genero g){
     Genero x = Pesquisar(g.Id);
     x.Descricao = g.Descricao;
-    Salvar(generos);
-      
+    Salvar(generos);   
   }
   public static void Excluir(Genero g){
     Genero x = Pesquisar(g.Id);

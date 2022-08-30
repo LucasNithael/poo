@@ -18,10 +18,32 @@ static class NLeitura{
       leituras.Add(l);
       Salvar(leituras);
   }
+  public static List<Leitura> ListarLeituraUsuario(Usuario u){
+    leituras = Abrir();
+    List<Leitura> leiturasU = new List<Leitura>();
+    if(leituras.Count == 0) throw new NullReferenceException("Não existe Leitura");
+    foreach(Leitura i in leituras)
+      if(i.IdUsuario == u.Id)
+        leiturasU.Add(i);
+    return leiturasU;
+  }
+
   public static List<Leitura> Listar(){
     leituras = Abrir();
-    if(leituras.Count == 0) throw new NullReferenceException("Não existe Gêneros");
-    else return leituras;
+    if(leituras.Count == 0) throw new NullReferenceException("Não existe Leitura");
+    return leituras;
+  }
+
+  public static void Atualizar(Leitura l){
+    Leitura x = Pesquisar(l.Id);
+    x.Situacao = l.Situacao;
+    Salvar(leituras);   
+  }
+
+  public static Leitura Pesquisar(int id){
+    foreach(Leitura i in Listar())
+      if(i.Id == id) return i;
+    return null;
   }
   
   private static string arquivo = "Arquivos/leituras.xml";

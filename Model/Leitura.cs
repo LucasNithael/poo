@@ -6,5 +6,5 @@ public class Leitura{
   public DateTime DataFIm{get;set;}
   public int IdLivro{get;set;}
   public int IdUsuario{get;set;}
-  public string Situacao{get;set;}
+  public bool Situacao{get;set;}
 }
