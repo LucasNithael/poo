@@ -633,6 +633,7 @@ public class Program {
       Cor.DarkRed();
       Console.WriteLine("Livros não encontrado ✘");
       Cor.White();
+    }
   }
   
   
