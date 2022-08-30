@@ -6,6 +6,6 @@
     <DataFIm>0001-01-01T00:00:00</DataFIm>
     <IdLivro>2</IdLivro>
     <IdUsuario>1</IdUsuario>
-    <Situacao>true</Situacao>
+    <Situacao>false</Situacao>
   </Leitura>
 </ArrayOfLeitura>

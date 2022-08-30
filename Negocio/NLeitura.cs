@@ -45,6 +45,14 @@ static class NLeitura{
       if(i.Id == id) return i;
     return null;
   }
+
+  public static void Excluir(Leitura l){
+    Leitura x = Pesquisar(l.Id);
+    if(x != null){
+      leituras.Remove(x);
+      Salvar(leituras);
+    }
+  }
   
   private static string arquivo = "Arquivos/leituras.xml";
 

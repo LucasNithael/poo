@@ -118,7 +118,8 @@ public class Program {
             case 06 : UsuarioLivroBuscar(); break;
             //Leitura
             case 07 : LeituraListar(); break;
-            //case 8 : LeituraExcluir(); break;
+            case 8 : LeituraExcluir(); break;
+            //Senha
             case 10: MudarSenha(); break;
           }
       }
@@ -1070,10 +1071,36 @@ public class Program {
     }
     catch(NullReferenceException){
       Cor.DarkRed();
+      Console.WriteLine("Leitura não encontrada ou não existe leitura ✘");
+      Cor.White();
+      Console.WriteLine("———————————————————————————");
+      //LeituraListar();
+    }
+  }
+
+  public static void LeituraExcluir(){
+    try{
+    Cor.Yellow();
+    Console.WriteLine("∷∷∷∷∷【EXCLUIR LEITURA】∷∷∷∷");
+    Cor.Magenta();
+    foreach(Leitura i in NLeitura.Listar())
+      Console.WriteLine($"{i.Id} - {NLivro.Pesquisar(i.IdLivro).Titulo} - Autor {NAutor.Pesquisar(NLivro.Pesquisar(i.IdLivro).IdAutor).Nome} - Gênero: {NGenero.Pesquisar(NLivro.Pesquisar(i.IdLivro).IdGenero).Descricao}");
+    Cor.White();
+    Console.Write("▶ Id da Leitura: ");
+    int idleitura = int.Parse(Console.ReadLine());
+    Leitura x = NLeitura.Pesquisar(idleitura);
+    NLeitura.Excluir(x);
+    Cor.Green();
+    Console.WriteLine("Leitura Aberta ✔");
+    Cor.White();
+    Console.WriteLine("———————————————————————————");
+    }
+    catch(NullReferenceException){
+      Cor.DarkRed();
       Console.WriteLine("Leitura não encontrada ✘");
       Cor.White();
       Console.WriteLine("———————————————————————————");
-      LeituraListar();
+      LeituraExcluir();
     }
   }
 }
