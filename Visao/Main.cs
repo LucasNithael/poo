@@ -159,7 +159,7 @@ public class Program {
     Console.WriteLine("⣿  08 - Excluir Leitura   ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
     Console.WriteLine("⣿  10 - Mudar Senha       ⣿");
-    Console.WriteLine("⣿  00 - Logout            ⣿");
+    Console.WriteLine("⣿  99 - Logout            ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
     Cor.White();
     Console.Write("▶ Opção: ");
@@ -195,7 +195,7 @@ public class Program {
       catch (Exception erro) {
         Console.WriteLine(erro.GetType() + "\n" + erro.Message);      
       }
-    } while (op != 00);
+    } while (op != 99);
   }
 
    public static int MenuAdmin() {
@@ -234,7 +234,7 @@ public class Program {
     Console.WriteLine("⣿  13 - Listar            ⣿");
     Console.WriteLine("⣿  14 - Excluir           ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
-    Console.WriteLine("⣿  00 - Logout            ⣿");
+    Console.WriteLine("⣿  99 - Logout            ⣿");
     Console.WriteLine("∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷");
     Cor.White();
     Console.Write("▶ Opção: ");
