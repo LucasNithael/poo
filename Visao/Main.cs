@@ -193,6 +193,8 @@ public class Program {
             // Leitor
             case 13 : UsuarioListar(); break;
             case 14 : UsuarioExcluir(); break;
+            //Sair
+            case 99: Main(); break;
           }
       }
       catch (Exception erro) {
