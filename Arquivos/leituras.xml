@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfLeitura xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Leitura>
-    <Id>1</Id>
-    <DataInicio>2022-08-31T00:00:00+00:00</DataInicio>
-    <DataFim>2022-08-31T00:00:00+00:00</DataFim>
-    <IdLivro>2</IdLivro>
-    <IdUsuario>1</IdUsuario>
-    <Situacao>false</Situacao>
-  </Leitura>
+
 </ArrayOfLeitura>

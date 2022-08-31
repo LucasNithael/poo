@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAutor xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Autor>
+    <Id>1</Id>
+    <Nome>J.K. Rowling</Nome>
+  </Autor>
+  <Autor>
     <Id>2</Id>
     <Nome>Machado de Assis</Nome>
   </Autor>
   <Autor>
     <Id>3</Id>
-    <Nome>Arthur Holmes</Nome>
-  </Autor>
-  <Autor>
-    <Id>4</Id>
-    <Nome>J. K. Rowling</Nome>
+    <Nome>Arthur Conan Doyle</Nome>
   </Autor>
 </ArrayOfAutor>

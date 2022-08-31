@@ -118,7 +118,7 @@ public class Program {
             case 06 : UsuarioLivroBuscar(); break;
             //Leitura
             case 07 : LeituraListar(); break;
-            case 8 : LeituraExcluir(); break;
+            case 08 : LeituraExcluir(); break;
             //Senha
             case 10: MudarSenha(); break;
             //Sair
@@ -680,7 +680,7 @@ public class Program {
     //LISTA AS OPÇÕES
     Cor.Magenta();
     foreach(Livro i in NLivro.Listar())
-      Console.WriteLine(i);
+      Console.WriteLine($"{i.Id} - {i.Titulo} - Autor: {NAutor.Pesquisar(i.IdAutor).Nome} - Gênero: {NGenero.Pesquisar(i.IdGenero).Descricao}");
     //PEDE O ID DO OBJETO A SER EXCLUÍDO
     Cor.White();
     Console.Write("▶ Id: ");
