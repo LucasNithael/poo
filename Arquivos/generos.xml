@@ -4,4 +4,12 @@
     <Id>1</Id>
     <Descricao>Aventura</Descricao>
   </Genero>
+  <Genero>
+    <Id>2</Id>
+    <Descricao>Romance</Descricao>
+  </Genero>
+  <Genero>
+    <Id>3</Id>
+    <Descricao>Investigação</Descricao>
+  </Genero>
 </ArrayOfGenero>
