@@ -50,26 +50,15 @@ static class NAutor{
   private static string arquivo = "Arquivos/autores.xml";
   
   private static List<Autor> Abrir() {
-    XmlSerializer xml = new XmlSerializer(typeof(List<Autor>));
-    StreamReader f = null;
-    List<Autor> obj;
     try {
-      f = new StreamReader(arquivo);
-      obj = (List<Autor>) xml.Deserialize(f);
+        return Arquivo<List<Autor>>.Abrir(arquivo);
     }
     catch(FileNotFoundException) {
-      obj = new List<Autor>();
+      return new List<Autor>();
     }
-    finally {
-     if (f != null) f.Close();
-    }
-    return obj;
   }
+  
   private static void Salvar(List<Autor> obj) {
-    XmlSerializer xml = new
-      XmlSerializer(typeof(List<Autor>));
-    StreamWriter f = new StreamWriter(arquivo, false);
-    xml.Serialize(f, obj);
-    f.Close();
+    Arquivo<List<Autor>>.Salvar(arquivo, obj);
   }
 }

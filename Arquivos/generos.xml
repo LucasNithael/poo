@@ -12,4 +12,8 @@
     <Id>3</Id>
     <Descricao>Investigação</Descricao>
   </Genero>
+  <Genero>
+    <Id>4</Id>
+    <Descricao>Mistério</Descricao>
+  </Genero>
 </ArrayOfGenero>

@@ -69,26 +69,15 @@ static class NLivro{
   private static string arquivo = "Arquivos/livros.xml";
   
   private static List<Livro> Abrir() {
-    XmlSerializer xml = new XmlSerializer(typeof(List<Livro>));
-    StreamReader f = null;
-    List<Livro> obj;
     try {
-      f = new StreamReader(arquivo);
-      obj = (List<Livro>) xml.Deserialize(f);
+        return Arquivo<List<Livro>>.Abrir(arquivo);
     }
     catch(FileNotFoundException) {
-      obj = new List<Livro>();
+      return new List<Livro>();
     }
-    finally {
-     if (f != null) f.Close();
-    }
-    return obj;
   }
+  
   private static void Salvar(List<Livro> obj) {
-    XmlSerializer xml = new
-      XmlSerializer(typeof(List<Livro>));
-    StreamWriter f = new StreamWriter(arquivo, false);
-    xml.Serialize(f, obj);
-    f.Close();
+    Arquivo<List<Livro>>.Salvar(arquivo, obj);
   }
 }

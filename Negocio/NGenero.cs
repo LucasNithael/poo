@@ -53,26 +53,15 @@ static class NGenero{
   private static string arquivo = "Arquivos/generos.xml";
   
   private static List<Genero> Abrir() {
-    XmlSerializer xml = new XmlSerializer(typeof(List<Genero>));
-    StreamReader f = null;
-    List<Genero> obj;
     try {
-      f = new StreamReader(arquivo);
-      obj = (List<Genero>) xml.Deserialize(f);
+        return Arquivo<List<Genero>>.Abrir(arquivo);
     }
     catch(FileNotFoundException) {
-      obj = new List<Genero>();
+      return new List<Genero>();
     }
-    finally {
-     if (f != null) f.Close();
-    }
-    return obj;
   }
+  
   private static void Salvar(List<Genero> obj) {
-    XmlSerializer xml = new
-      XmlSerializer(typeof(List<Genero>));
-    StreamWriter f = new StreamWriter(arquivo, false);
-    xml.Serialize(f, obj);
-    f.Close();
+    Arquivo<List<Genero>>.Salvar(arquivo, obj);
   }
 }

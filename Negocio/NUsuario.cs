@@ -56,26 +56,15 @@ static class NUsuario{
   private static string arquivo = "Arquivos/usuarios.xml";
 
   private static List<Usuario> Abrir() {
-    XmlSerializer xml = new XmlSerializer(typeof(List<Usuario>));
-    StreamReader f = null;
-    List<Usuario> obj;
     try {
-      f = new StreamReader(arquivo);
-      obj = (List<Usuario>) xml.Deserialize(f);
+        return Arquivo<List<Usuario>>.Abrir(arquivo);
     }
     catch(FileNotFoundException) {
-      obj = new List<Usuario>();
+      return new List<Usuario>();
     }
-    finally {
-     if (f != null) f.Close();
-    }
-    return obj;
   }
+  
   private static void Salvar(List<Usuario> obj) {
-    XmlSerializer xml = new
-      XmlSerializer(typeof(List<Usuario>));
-    StreamWriter f = new StreamWriter(arquivo, false);
-    xml.Serialize(f, obj);
-    f.Close();
+    Arquivo<List<Usuario>>.Salvar(arquivo, obj);
   }
 }
