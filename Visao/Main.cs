@@ -121,6 +121,8 @@ public class Program {
             case 8 : LeituraExcluir(); break;
             //Senha
             case 10: MudarSenha(); break;
+            //Sair
+            case 99: Main(); break;
           }
       }
       catch (Exception erro) {
