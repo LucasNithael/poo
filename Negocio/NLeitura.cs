@@ -37,6 +37,7 @@ static class NLeitura{
   public static void Atualizar(Leitura l){
     Leitura x = Pesquisar(l.Id);
     x.Situacao = l.Situacao;
+    x.DataFim = l.DataFim;
     Salvar(leituras);   
   }
 

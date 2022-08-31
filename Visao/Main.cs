@@ -126,7 +126,7 @@ public class Program {
       catch (Exception erro) {
         Console.WriteLine(erro.GetType() + "\n" + erro.Message);      
       }
-    } while (op != 00);
+    } while (op != 99);
   }
 
    public static int MenuLeitor() {
@@ -287,7 +287,8 @@ public class Program {
     Leitura nova = new Leitura();
     nova.IdLivro = l.Id;
     nova.IdUsuario = leitorLogado.Id;
-    nova.Situacao = true; 
+    nova.Situacao = true;
+    nova.DataInicio = DateTime.Today;
     NLeitura.Inserir(nova);
     
     Cor.Green();
@@ -341,6 +342,7 @@ public class Program {
       nova.IdLivro = l.Id;
       nova.IdUsuario = leitorLogado.Id;
       nova.Situacao = true;
+      nova.DataInicio = DateTime.Today;
       NLeitura.Inserir(nova);
     }
     Cor.Green();
@@ -508,6 +510,8 @@ public class Program {
     Leitura nova = new Leitura();
     nova.IdLivro = a.Id;
     nova.IdUsuario = leitorLogado.Id;
+    nova.Situacao = true;
+    nova.DataInicio = DateTime.Today;
     NLeitura.Inserir(nova);
     Cor.Green();
     Console.WriteLine("Livro Selecionado ✔"); 
@@ -555,6 +559,7 @@ public class Program {
     nova.IdLivro = l.Id;
     nova.IdUsuario = leitorLogado.Id;
     nova.Situacao = true;
+    nova.DataInicio = DateTime.Today;
     NLeitura.Inserir(nova);
 
     Cor.Green();
@@ -739,6 +744,7 @@ public class Program {
       nova.IdLivro = l.Id;
       nova.IdUsuario = leitorLogado.Id;
       nova.Situacao = true;
+      nova.DataInicio = DateTime.Today;
       NLeitura.Inserir(nova);
       
       Cor.Green();
@@ -792,6 +798,7 @@ public class Program {
       nova.IdLivro = l.Id;
       nova.IdUsuario = leitorLogado.Id;
       nova.Situacao = true;
+      nova.DataInicio = DateTime.Today;
       NLeitura.Inserir(nova);
     }
     Cor.Green();
@@ -1047,6 +1054,7 @@ public class Program {
         LeituraListar();
       }
       x.Situacao = false;
+      x.DataFim = DateTime.Today;
       NLeitura.Atualizar(x);
       Cor.Green();
       Console.WriteLine("Leitura Fechada ✔");
@@ -1066,6 +1074,7 @@ public class Program {
         LeituraListar();
       }
       x.Situacao = true;
+      x.DataInicio = DateTime.Today;
       NLeitura.Atualizar(x);
       Cor.Green();
       Console.WriteLine("Leitura Aberta ✔");
@@ -1089,6 +1098,7 @@ public class Program {
       Cor.White();
       Console.WriteLine("———————————————————————————");
       //LeituraListar();
+      MainLeitor();
     }
   }
 
@@ -1105,7 +1115,7 @@ public class Program {
     Leitura x = NLeitura.Pesquisar(idleitura);
     NLeitura.Excluir(x);
     Cor.Green();
-    Console.WriteLine("Leitura Aberta ✔");
+    Console.WriteLine("Leitura Excluída ✔");
     Cor.White();
     Console.WriteLine("———————————————————————————");
     }
